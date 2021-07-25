@@ -1,0 +1,7 @@
+{
+  "name": "emptyout",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
