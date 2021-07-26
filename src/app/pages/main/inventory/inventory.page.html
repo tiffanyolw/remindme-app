@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Inventory</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="options"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="products">
+        Products
+      </ion-segment-button>
+      <ion-segment-button value="expired">
+        Expired
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group *ngIf="segment === 'products'">
+    <ion-item lines="none" sticky>
+      <ion-label *ngIf=false>
+        2 items expiring in 7 days
+      </ion-label>
+      <ion-label *ngIf=true>
+        1 item expiring in 7 days
+      </ion-label>
+    </ion-item>
+
+    <ion-list lines="full">
+      <ion-item-sliding *ngFor="let product of productsList">
+        <ion-item *ngIf="!product.expired">
+          <ion-label>
+            {{product.name}}
+          </ion-label>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="success">
+            <ion-icon name="restaurant-outline"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-item-group>
+
+  <ion-item-group *ngIf="segment === 'expired'">
+    <ion-list lines="full">
+      <ion-item-sliding *ngFor="let product of expiredList">
+        <ion-item>
+          <ion-label>
+            {{product.name}}
+          </ion-label>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="danger">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-item-group>
+</ion-content>
