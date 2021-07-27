@@ -13,7 +13,7 @@ export class GroceryService {
   constructor(private _http: HttpClient) { }
 
   getGroceries(bought?: boolean): Observable<Grocery[]> {
-    let query = bought ? `?bought=${bought}` : "";
+    let query = bought ? `?bought=${bought}` : ""; // if bought !== undefined
 
     return this._http.get<Grocery[]>(`${this.apiURL}?${query}`);
   }

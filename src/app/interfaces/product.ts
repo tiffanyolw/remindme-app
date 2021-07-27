@@ -15,6 +15,5 @@ export interface Product {
 export enum Status {
     Ready = "ready",
     Consumed = "consumed",
-    Trashed = "trashed",
-    Expired = "expired"
+    Trashed = "trashed"
 }

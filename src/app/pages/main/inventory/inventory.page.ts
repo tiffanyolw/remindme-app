@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { InventoryFilterComponent } from 'src/app/components/inventory-filter/inventory-filter.component';
 import { Product, Status } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -8,50 +10,50 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./inventory.page.scss'],
 })
 export class InventoryPage implements OnInit {
+  private productsList: Product[] = [];
+  private expiredList: Product[] = [];
+  private categories?: string = null;
+  private locations?: string = null;
+  private orderBy: string = "expiryDate";
+  private ordering: string = "desc";
+  listItems: Product[] = [];
   segment: string = "products";
-  productsList: Product[] = [];
-  expiredList: Product[] = [];
 
-  constructor(private _service: ProductService) { }
-
-  private loadProducts() {
-    this._service.getProducts("ready").subscribe((result) => {
-      this.productsList = result;
-    }, () => {
-      // show message
-    });
-  }
-
-  private loadExpired() {
-    this._service.getProducts("expired").subscribe((result) => {
-      this.expiredList = result;
-    }, () => {
-      // show message
-    });
-  }
-
-  private updateExpired() {
-    let now = new Date(Date.now());
-    this.productsList.forEach((product) => {
-      if (product.expiryDate < now) {
-        product.status = Status.Expired;
-      }
-    });
-    this.expiredList.forEach((product) => {
-      if (product.expiryDate < now) {
-        product.status = Status.Ready;
-      }
-    });
-  }
+  constructor(private _service: ProductService, private _modalCtrl: ModalController) { }
 
   private loadAll() {
-    this.loadExpired();
-    this.loadProducts();
+    this._service.getProducts(Status.Ready, false).subscribe((result) => {
+      this.productsList = result;
+    }, (err) => {
+      // TODO
+    });
+
+    this._service.getProducts(Status.Ready, true).subscribe((result) => {
+      this.expiredList = result;
+    }, (err) => {
+      // TODO
+    });
+  }
+
+  async presentFilter() {
+    const modal = await this._modalCtrl.create({
+      component: InventoryFilterComponent
+    });
+
+    await modal.present();
+    await modal.onWillDismiss();
+  }
+
+  getList(): Product[] {
+    if (this.segment === "products") {
+      return this.productsList;
+    } else if (this.segment === "expired") {
+      return this.expiredList;
+    }
+    return [];
   }
 
   ionViewWillEnter() {
-    this.loadAll();
-    this.updateExpired();
     this.loadAll();
   }
 
