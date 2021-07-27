@@ -12,23 +12,23 @@ import { ProductService } from 'src/app/services/product.service';
 export class InventoryPage implements OnInit {
   private productsList: Product[] = [];
   private expiredList: Product[] = [];
-  private categories?: string = null;
-  private locations?: string = null;
-  private orderBy: string = "expiryDate";
-  private ordering: string = "desc";
   listItems: Product[] = [];
+  categories?: string[] = null;
+  locations?: string[] = null;
+  orderBy: string = "id";
+  ordering: string = "desc";
   segment: string = "products";
 
   constructor(private _service: ProductService, private _modalCtrl: ModalController) { }
 
   private loadAll() {
-    this._service.getProducts(Status.Ready, false).subscribe((result) => {
+    this._service.getProducts(Status.Ready, false, this.categories, this.locations, this.orderBy, this.ordering).subscribe((result) => {
       this.productsList = result;
     }, (err) => {
       // TODO
     });
 
-    this._service.getProducts(Status.Ready, true).subscribe((result) => {
+    this._service.getProducts(Status.Ready, true, this.categories, this.locations, this.orderBy, this.ordering).subscribe((result) => {
       this.expiredList = result;
     }, (err) => {
       // TODO
