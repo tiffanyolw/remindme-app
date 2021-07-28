@@ -20,7 +20,7 @@
     <ion-item>
       <ion-label position="floating">Unit</ion-label>
       <ion-select formControlName="unitId">
-        <ion-select-option [value]="unit.id" *ngFor="let unit of units">
+        <ion-select-option *ngFor="let unit of units" [value]="unit.id" >
           {{ unit.name }}
         </ion-select-option>
       </ion-select>
@@ -36,7 +36,7 @@
     <ion-item>
       <ion-label position="floating">Category</ion-label>
       <ion-select formControlName="categoryId">
-        <ion-select-option [value]="category.id" *ngFor="let category of categories">
+        <ion-select-option *ngFor="let category of categories" [value]="category.id">
           {{ category.name }}
         </ion-select-option>
       </ion-select>
@@ -44,7 +44,7 @@
     <ion-item>
       <ion-label position="floating">Location Stored</ion-label>
       <ion-select formControlName="locationStoredId">
-        <ion-select-option [value]="location.id" *ngFor="let location of locations">
+        <ion-select-option *ngFor="let location of locations" [value]="location.id">
           {{ location.name }}
         </ion-select-option>
       </ion-select>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { InventoryFilterComponent } from 'src/app/components/inventory-filter/inventory-filter.component';
 import { Product, Status } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
+import { FilterPage } from './filter/filter.page';
 
 @Component({
   selector: 'app-inventory',
@@ -37,7 +37,7 @@ export class InventoryPage implements OnInit {
 
   async presentFilter() {
     const modal = await this._modalCtrl.create({
-      component: InventoryFilterComponent
+      component: FilterPage
     });
 
     await modal.present();
