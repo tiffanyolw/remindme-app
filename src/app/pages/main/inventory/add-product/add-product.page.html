@@ -19,9 +19,9 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Unit</ion-label>
-      <ion-select formControlName="unit">
-        <ion-select-option>
-          test
+      <ion-select formControlName="unitId">
+        <ion-select-option [value]="unit.id" *ngFor="let unit of units">
+          {{ unit.name }}
         </ion-select-option>
       </ion-select>
     </ion-item>
@@ -35,17 +35,17 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Category</ion-label>
-      <ion-select formControlName="category">
-        <ion-select-option>
-          test
+      <ion-select formControlName="categoryId">
+        <ion-select-option [value]="category.id" *ngFor="let category of categories">
+          {{ category.name }}
         </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Location Stored</ion-label>
-      <ion-select formControlName="locationStored">
-        <ion-select-option>
-          test
+      <ion-select formControlName="locationStoredId">
+        <ion-select-option [value]="location.id" *ngFor="let location of locations">
+          {{ location.name }}
         </ion-select-option>
       </ion-select>
     </ion-item>

@@ -5,8 +5,8 @@ export interface Product {
     unitId: number;
     purchaseDate?: Date;
     expiryDate?: Date;
-    categoryId?: number;
-    locationStoredId?: number;
+    categoryId: number;
+    locationStoredId: number;
     notes?: string;
     daysBeforeNotify?: number;
     status: Status
