@@ -2,11 +2,11 @@ export interface Product {
     id?: number;
     name: string;
     quantity: number;
-    unit: string;
+    unitId: number;
     purchaseDate?: Date;
     expiryDate?: Date;
-    category?: string;
-    locationStored?: string;
+    categoryId?: number;
+    locationStoredId?: number;
     notes?: string;
     daysBeforeNotify?: number;
     status: Status

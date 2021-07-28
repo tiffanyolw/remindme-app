@@ -32,12 +32,16 @@ export class AddProductPage implements OnInit {
   onSubmit() {
     let form: Product = this.addProductForm.value;
     form.status = Status.Ready;
+    // to delete
+    form.categoryId = 1;
+    form.locationStoredId = 1;
+    form.unitId = 1;
+    // ----------
 
     this._productService.addProduct(form).subscribe(() => {
       // todo
       this._navCtrl.back();
     }, () => {
-      console.log("bye");
       // todo
     });
   }
