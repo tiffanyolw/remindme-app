@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Category } from 'src/app/interfaces/category';
 import { Location } from 'src/app/interfaces/location';
 import { DataLookupService } from 'src/app/services/data-lookup.service';
@@ -13,14 +13,15 @@ export class FilterPage implements OnInit {
   categories: Category[] = [];
   locations: Location[] = [];
 
-  constructor(private _modalCtrl: ModalController, private _dataLookupService: DataLookupService) {
+  constructor(private _modalCtrl: ModalController, private _toastCtrl: ToastController,
+    private _dataLookupService: DataLookupService) {
     if (this._dataLookupService.categories.length > 0) {
       this.categories = this._dataLookupService.categories;
     } else {
       this._dataLookupService.getCategories().subscribe((result) => {
         this.categories = result;
       }, () => {
-        // this.showToast("Could not get categories");
+        this.showToast("Error: Could not load categories");
       });
     }
 
@@ -30,12 +31,25 @@ export class FilterPage implements OnInit {
       this._dataLookupService.getLocations().subscribe((result) => {
         this.locations = result;
       }, () => {
-        //this.showToast("Could not get locations stored");
+        this.showToast("Error: Could not load locations stored");
       });
     }
   }
 
-  selectAll(checked: boolean) {
+  private async showToast(message: string) {
+    const toast = await this._toastCtrl.create({
+      message,
+      duration: 2000
+    });
+
+    toast.present();
+  }
+
+  selectAllCategories() {
+    
+  }
+
+  selectAllLocations() {
     // todo
   }
 

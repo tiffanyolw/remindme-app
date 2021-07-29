@@ -43,7 +43,7 @@ export class AddProductPage implements OnInit {
       this._dataLookupService.getCategories().subscribe((result) => {
         this.categories = result;
       }, () => {
-        this.showToast("Could not get categories");
+        this.showToast("Could not load categories");
       });
     }
 
@@ -53,7 +53,7 @@ export class AddProductPage implements OnInit {
       this._dataLookupService.getLocations().subscribe((result) => {
         this.locations = result;
       }, () => {
-        this.showToast("Could not get locations stored");
+        this.showToast("Error: Could not load locations stored");
       });
     }
 
@@ -63,7 +63,7 @@ export class AddProductPage implements OnInit {
       this._dataLookupService.getUnits().subscribe((result) => {
         this.units = result;
       }, () => {
-        this.showToast("Could not get units");
+        this.showToast("Error: Could not load units");
       });
     }
   }
