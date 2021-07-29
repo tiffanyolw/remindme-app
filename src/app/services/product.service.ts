@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Order } from '../interfaces/order';
 import { Product, Status } from './../interfaces/product';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class ProductService {
 
   constructor(private _http: HttpClient) { }
 
-  getProducts(status?: Status, expired?: boolean, categories?: number[], locations?: number[], orderBy?: string, ordering?: string): Observable<Product[]> {
+  getProducts(status?: Status, expired?: boolean, categories?: number[], locations?: number[], order?: Order): Observable<Product[]> {
     let queries = [];
     if (status) {
       queries.push(`status=${status}`);
@@ -24,13 +25,11 @@ export class ProductService {
       queries.push(`categoryId=${categories.join("&categoryId=")}`);
     }
     if (locations?.length > 0) {
-      queries.push(`locationId=${locations.join("&locationId=")}`);
+      queries.push(`locationStoredId=${locations.join("&locationStoredId=")}`);
     }
-    if (orderBy) {
-      queries.push(`orderBy=${orderBy}`);
-    }
-    if (ordering) {
-      queries.push(`ordering=${ordering}`);
+    if (order) {
+      queries.push(`orderBy=${order.orderBy}`);
+      queries.push(`ordering=${order.ordering}`);
     }
 
     let queryString = queries.length > 0 ? `?${queries.join("&")}` : "";

@@ -15,7 +15,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AddProductPage implements OnInit {
   addProductForm: FormGroup;
-  maxYear: number;
+  maxYear: number; // for date inputs
   categories: Category[] = [];
   locations: Location[] = [];
   units: Unit[] = [];
@@ -37,6 +37,7 @@ export class AddProductPage implements OnInit {
       daysBeforeNotify: []
     });
 
+    // only call API if no categories
     if (this._dataLookupService.categories.length > 0) {
       this.categories = this._dataLookupService.categories;
     } else {
@@ -47,6 +48,7 @@ export class AddProductPage implements OnInit {
       });
     }
 
+    // only call API if no locations
     if (this._dataLookupService.locations.length > 0) {
       this.locations = this._dataLookupService.locations;
     } else {
@@ -57,6 +59,7 @@ export class AddProductPage implements OnInit {
       });
     }
 
+    // only call API if no units
     if (this._dataLookupService.units.length > 0) {
       this.units = this._dataLookupService.units;
     } else {

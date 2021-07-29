@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
+import { Order } from 'src/app/interfaces/order';
 import { Product, Status } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 import { FilterPage } from './filter/filter.page';
@@ -12,25 +13,29 @@ import { FilterPage } from './filter/filter.page';
 export class InventoryPage implements OnInit {
   private productsList: Product[] = [];
   private expiredList: Product[] = [];
-  listItems: Product[] = [];
-  categories: number[] = [];
-  locations: number[] = [];
-  orderBy: string = "createdAt";
-  ordering: string = "desc";
   segment: string = "products";
 
+  // filtered selections
+  categories: number[] = [];
+  locations: number[] = [];
+  order: Order = {
+    orderBy: "expiryDate",
+    ordering: "desc"
+  };
+
   constructor(private _modalCtrl: ModalController, private _toastCtrl: ToastController,
-    private _service: ProductService) { }
+    private _service: ProductService) {
+  }
 
   private loadAll() {
-    this._service.getProducts(Status.Ready, false, this.categories, this.locations, this.orderBy, this.ordering)
+    this._service.getProducts(Status.Ready, false, this.categories, this.locations, this.order)
       .subscribe((result) => {
         this.productsList = result;
       }, () => {
         this.showToast("Error: Could not load products");
       });
 
-    this._service.getProducts(Status.Ready, true, this.categories, this.locations, this.orderBy, this.ordering)
+    this._service.getProducts(Status.Ready, true, this.categories, this.locations, this.order)
       .subscribe((result) => {
         this.expiredList = result;
       }, () => {
@@ -50,7 +55,11 @@ export class InventoryPage implements OnInit {
   async presentFilter() {
     const modal = await this._modalCtrl.create({
       component: FilterPage,
-      componentProps: { categories: this.categories, locations: this.locations }
+      componentProps: {
+        categories: this.categories,
+        locations: this.locations,
+        order: this.order
+      }
     });
 
     await modal.present();
@@ -58,6 +67,8 @@ export class InventoryPage implements OnInit {
     if (data) {
       this.categories = data.categories;
       this.locations = data.locations;
+      this.order = data.order;
+
       this.loadAll();
     }
   }

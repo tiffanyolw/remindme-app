@@ -19,6 +19,7 @@ export class DataLookupService {
 
   getCategories(): Observable<Category[]> {
     const obs = this._http.get<Category[]>(`${this.apiURL}/category`);
+    // store the result in the service
     obs.subscribe((result) => {
       this.categories = result;
     }, () => {
@@ -29,6 +30,7 @@ export class DataLookupService {
 
   getLocations(): Observable<Location[]> {
     const obs = this._http.get<Location[]>(`${this.apiURL}/location`);
+    // store the result in the service
     obs.subscribe((result) => {
       this.locations = result;
     }, () => {
@@ -39,6 +41,7 @@ export class DataLookupService {
 
   getUnits(): Observable<Unit[]> {
     const obs = this._http.get<Unit[]>(`${this.apiURL}/unit`);
+    // store the result in the service
     obs.subscribe((result) => {
       this.units = result;
     }, () => {

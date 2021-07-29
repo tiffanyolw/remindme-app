@@ -12,11 +12,19 @@ import { DataLookupService } from 'src/app/services/data-lookup.service';
 export class FilterPage implements OnInit {
   categories: Category[] = [];
   locations: Location[] = [];
+
+  // filters and whether they were checked or not
   selectedCategories: any[] = [];
   selectedLocations: any[] = [];
 
+  order: { orderBy: string, ordering: string };
+
   constructor(private _modalCtrl: ModalController, private _toastCtrl: ToastController,
     private _navParams: NavParams, private _dataLookupService: DataLookupService) {
+
+    this.order = this._navParams.get("order");
+
+    // only call API if no categories
     if (this._dataLookupService.categories.length > 0) {
       this.categories = this._dataLookupService.categories;
       this.getSelectedCategoryData();
@@ -29,6 +37,7 @@ export class FilterPage implements OnInit {
       });
     }
 
+    // only call API if no locations
     if (this._dataLookupService.locations.length > 0) {
       this.locations = this._dataLookupService.locations;
       this.getSelectedLocationData();
@@ -43,7 +52,7 @@ export class FilterPage implements OnInit {
   }
 
   private getSelectedCategoryData() {
-    const categoryIds: number[] = this._navParams.get("categories");
+    let categoryIds: number[] = this._navParams.get("categories");
     this.categories.forEach((category) => {
       this.selectedCategories.push({
         id: category.id,
@@ -51,6 +60,10 @@ export class FilterPage implements OnInit {
         isChecked: categoryIds.includes(category.id)
       });
     });
+    // all checked if no filters set
+    if (categoryIds.length === 0) {
+      this.toggleAllCategories(true);
+    }
   }
 
   private getSelectedLocationData() {
@@ -62,6 +75,10 @@ export class FilterPage implements OnInit {
         isChecked: locationIds.includes(location.id)
       });
     });
+    // all checked if no filters set
+    if (locationIds.length === 0) {
+      this.toggleAllLocations(true);
+    }
   }
 
   private async showToast(message: string) {
@@ -71,6 +88,14 @@ export class FilterPage implements OnInit {
     });
 
     toast.present();
+  }
+  
+  toggleOrdering() {
+    if (this.order.ordering === "desc") {
+      this.order.ordering = "asc";
+    } else {
+      this.order.ordering = "desc"
+    }
   }
 
   toggleAllCategories(checked: boolean) {
@@ -91,15 +116,25 @@ export class FilterPage implements OnInit {
   }
 
   applyFilters() {
-    const categoryIds: number[] = this.selectedCategories
+    let categoryIds: number[] = this.selectedCategories
       .filter(category => category.isChecked)
       .map(category => category.id);
-    const locationIds: number[] = this.selectedLocations
+    // no filters if all checked
+    if (categoryIds.length === this.selectedCategories.length) {
+      categoryIds = [];
+    }
+    let locationIds: number[] = this.selectedLocations
       .filter(location => location.isChecked)
       .map(location => location.id);
+    // no filters if all checked
+    if (locationIds.length === this.selectedLocations.length) {
+      locationIds = [];
+    }
+
     this.close({
       categories: categoryIds,
-      locations: locationIds
+      locations: locationIds,
+      order: this.order
     });
   }
 
