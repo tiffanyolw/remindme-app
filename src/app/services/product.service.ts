@@ -12,7 +12,7 @@ export class ProductService {
 
   constructor(private _http: HttpClient) { }
 
-  getProducts(status?: Status, expired?: boolean, categories?: string[], locations?: string[], orderBy?: string, ordering?: string): Observable<Product[]> {
+  getProducts(status?: Status, expired?: boolean, categories?: number[], locations?: number[], orderBy?: string, ordering?: string): Observable<Product[]> {
     let queries = [];
     if (status) {
       queries.push(`status=${status}`);
@@ -21,10 +21,10 @@ export class ProductService {
       queries.push(`expired=${expired}`);
     }
     if (categories?.length > 0) {
-      queries.push(`category=${categories.join("&category=")}`);
+      queries.push(`categoryId=${categories.join("&categoryId=")}`);
     }
     if (locations?.length > 0) {
-      queries.push(`location=${locations.join("&location=")}`);
+      queries.push(`locationId=${locations.join("&locationId=")}`);
     }
     if (orderBy) {
       queries.push(`orderBy=${orderBy}`);

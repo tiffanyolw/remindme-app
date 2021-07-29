@@ -7,7 +7,7 @@
     </ion-buttons>
     <ion-title>Filter</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="selectAll(false)">
+      <ion-button (click)="reset()">
         Reset
       </ion-button>
       <ion-button (click)="applyFilters()">
@@ -22,13 +22,13 @@
     <ion-list-header>
       <h5>Categories</h5>
     </ion-list-header>
-    <ion-item lines="">
+    <ion-item (click)="toggleAllCategories(true)" lines="">
       <ion-label>All Categories</ion-label>
       <ion-checkbox slot="end"></ion-checkbox>
     </ion-item>
-    <ion-item *ngFor="let category of categories" lines="none">
+    <ion-item *ngFor="let category of selectedCategories" lines="none">
       <ion-label>{{ category.name }}</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="category.isChecked" slot="end"></ion-checkbox>
     </ion-item>
   </ion-list>
 
@@ -36,13 +36,13 @@
     <ion-list-header>
       <h5>Location Stored</h5>
     </ion-list-header>
-    <ion-item lines="">
+    <ion-item (click)="toggleAllLocations()" lines="">
       <ion-label>All Locations</ion-label>
       <ion-checkbox slot="end"></ion-checkbox>
     </ion-item>
-    <ion-item *ngFor="let location of locations" lines="none">
+    <ion-item *ngFor="let location of selectedLocations" lines="none">
       <ion-label>{{ location.name }}</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="location.isChecked" slot="end"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>

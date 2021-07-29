@@ -13,9 +13,9 @@ export class InventoryPage implements OnInit {
   private productsList: Product[] = [];
   private expiredList: Product[] = [];
   listItems: Product[] = [];
-  categories?: string[] = null;
-  locations?: string[] = null;
-  orderBy: string = "id";
+  categories: number[] = [];
+  locations: number[] = [];
+  orderBy: string = "createdAt";
   ordering: string = "desc";
   segment: string = "products";
 
@@ -49,11 +49,17 @@ export class InventoryPage implements OnInit {
 
   async presentFilter() {
     const modal = await this._modalCtrl.create({
-      component: FilterPage
+      component: FilterPage,
+      componentProps: { categories: this.categories, locations: this.locations }
     });
 
     await modal.present();
-    await modal.onWillDismiss();
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+      this.categories = data.categories;
+      this.locations = data.locations;
+      this.loadAll();
+    }
   }
 
   getList(): Product[] {
