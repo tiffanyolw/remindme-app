@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Order } from 'src/app/interfaces/order';
+import { Order, Ordering } from 'src/app/interfaces/order';
 import { Product, Status } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 import { FilterPage } from './filter/filter.page';
@@ -20,7 +20,7 @@ export class InventoryPage implements OnInit {
   locations: number[] = [];
   order: Order = {
     orderBy: "expiryDate",
-    ordering: "desc"
+    ordering: Ordering.DESC
   };
 
   constructor(private _modalCtrl: ModalController, private _toastCtrl: ToastController,

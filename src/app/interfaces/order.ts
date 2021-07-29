@@ -1,4 +1,9 @@
 export interface Order {
     orderBy: string,
-    ordering: string    
+    ordering: Ordering    
+}
+
+export enum Ordering {
+    DESC = "desc",
+    ASC = "asc"
 }

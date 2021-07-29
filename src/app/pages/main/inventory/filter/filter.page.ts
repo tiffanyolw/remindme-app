@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { Category } from 'src/app/interfaces/category';
 import { Location } from 'src/app/interfaces/location';
+import { Order, Ordering } from 'src/app/interfaces/order';
 import { DataLookupService } from 'src/app/services/data-lookup.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class FilterPage implements OnInit {
   selectedCategories: any[] = [];
   selectedLocations: any[] = [];
 
-  order: { orderBy: string, ordering: string };
+  order: Order;
 
   constructor(private _modalCtrl: ModalController, private _toastCtrl: ToastController,
     private _navParams: NavParams, private _dataLookupService: DataLookupService) {
@@ -89,12 +90,16 @@ export class FilterPage implements OnInit {
 
     toast.present();
   }
+
+  isDescending() {
+    return this.order.ordering === Ordering.DESC;
+  }
   
   toggleOrdering() {
-    if (this.order.ordering === "desc") {
-      this.order.ordering = "asc";
+    if (this.order.ordering === Ordering.DESC) {
+      this.order.ordering = Ordering.ASC;
     } else {
-      this.order.ordering = "desc"
+      this.order.ordering = Ordering.DESC
     }
   }
 
