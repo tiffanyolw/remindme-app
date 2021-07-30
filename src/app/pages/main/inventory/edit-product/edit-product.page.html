@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="updateProductForm && product">
+<ion-content *ngIf="product">
   <form [formGroup]="updateProductForm">
     <ion-item>
       <ion-label position="floating">Name</ion-label>
@@ -70,7 +70,7 @@
   </ion-button>
 </ion-content>
 
-<ion-footer class="ion-no-border">
+<ion-footer class="ion-no-border" *ngIf="product">
   <ion-toolbar>
     <ion-segment>
       <ion-segment-button (click)="consume()" id="consume" layout="icon-start">

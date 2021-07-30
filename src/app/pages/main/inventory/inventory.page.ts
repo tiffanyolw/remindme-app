@@ -12,8 +12,8 @@ import { FilterPage } from './filter/filter.page';
   styleUrls: ['./inventory.page.scss'],
 })
 export class InventoryPage implements OnInit {
-  private productsList: Product[] = [];
-  private expiredList: Product[] = [];
+  productsList: Product[] = [];
+  expiredList: Product[] = [];
   segment: string = "products";
 
   // filtered selections
@@ -21,7 +21,7 @@ export class InventoryPage implements OnInit {
   locations: number[] = [];
   order: Order = {
     orderBy: "expiryDate",
-    ordering: Ordering.DESC
+    ordering: Ordering.ASC
   };
 
   constructor(private _modalCtrl: ModalController, private _toastCtrl: ToastController,
