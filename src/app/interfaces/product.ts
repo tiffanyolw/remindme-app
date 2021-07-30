@@ -17,7 +17,9 @@ export interface Product {
     status: Status,
     category?: Category,
     locationStored?: Location,
-    unit?: Unit
+    unit?: Unit,
+    createdAt?: Date,
+    updatedAt?: Date
 }
 
 export enum Status {
