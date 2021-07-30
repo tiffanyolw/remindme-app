@@ -5,6 +5,8 @@ export interface Product {
     id?: number;
     name: string;
     quantity: number;
+    quantityConsumed: number;
+    quantityTrashed: number;
     unitId: number;
     purchaseDate?: Date;
     expiryDate?: Date;
@@ -13,9 +15,9 @@ export interface Product {
     notes?: string;
     daysBeforeNotify?: number;
     status: Status,
-    category: Category,
-    locationStored: Location,
-    unit: Unit
+    category?: Category,
+    locationStored?: Location,
+    unit?: Unit
 }
 
 export enum Status {

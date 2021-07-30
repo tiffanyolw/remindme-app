@@ -62,25 +62,29 @@
     </ion-item>
   </form>
 
-  <ion-button (click)="update()" [disabled]="updateProductForm.invalid">
+  <ion-button (click)="onUpdate()" [disabled]="updateProductForm.invalid">
     Update
   </ion-button>
-  <ion-button (click)="delete()" color="danger">
+  <ion-button (click)="onDelete()" color="danger">
     Delete
   </ion-button>
 </ion-content>
 
 <ion-footer class="ion-no-border" *ngIf="product">
-  <ion-toolbar>
-    <ion-segment>
-      <ion-segment-button (click)="consume()" id="consume" layout="icon-start">
-        <ion-icon name="restaurant"></ion-icon>
-        <ion-label>Consume</ion-label>
-      </ion-segment-button>
-      <ion-segment-button (click)="trash()" id="trash" layout="icon-start">
-        <ion-icon name="trash"></ion-icon>
-        <ion-label>Trash</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="onConsume()" color="success" class="ion-no-margin" expand="full">
+          <ion-icon name="restaurant"></ion-icon>
+          <ion-label>Consume</ion-label>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="onTrash()" color="danger" class="ion-no-margin" expand="full">
+          <ion-icon name="trash"></ion-icon>
+          <ion-label>Trash</ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-footer>

@@ -20,7 +20,7 @@
     <ion-item>
       <ion-label position="floating">Unit</ion-label>
       <ion-select formControlName="unitId">
-        <ion-select-option *ngFor="let unit of units" [value]="unit.id" >
+        <ion-select-option *ngFor="let unit of units" [value]="unit.id">
           {{ unit.name }}
         </ion-select-option>
       </ion-select>
@@ -60,7 +60,11 @@
       <ion-label position="floating">Days before expiry</ion-label>
       <ion-input type="number" min="0" formControlName="daysBeforeNotify"></ion-input>
     </ion-item>
-
-    <ion-button (click)="onSubmit()" [disabled]="addProductForm.invalid">Add</ion-button>
   </form>
 </ion-content>
+
+<ion-footer>
+  <ion-button (click)="onSubmit()" [disabled]="addProductForm.invalid" class="ion-no-margin" expand="full">
+    <ion-label>Add</ion-label>
+  </ion-button>
+</ion-footer>
