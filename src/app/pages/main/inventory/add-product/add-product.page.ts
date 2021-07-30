@@ -7,6 +7,7 @@ import { Product, Status } from 'src/app/interfaces/product';
 import { Unit } from 'src/app/interfaces/unit';
 import { DataLookupService } from 'src/app/services/data-lookup.service';
 import { ProductService } from 'src/app/services/product.service';
+import { Constants } from 'src/app/data/constants';
 
 @Component({
   selector: 'app-add-product',
@@ -15,7 +16,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AddProductPage implements OnInit {
   addProductForm: FormGroup;
-  maxYear: number; // for date inputs
+  maxYear: number = Constants.maxYear; // for date inputs
   categories: Category[] = [];
   locations: Location[] = [];
   units: Unit[] = [];
@@ -23,16 +24,14 @@ export class AddProductPage implements OnInit {
   constructor(private _builder: FormBuilder, private _navCtrl: NavController, private _toastCtrl: ToastController,
     private _productService: ProductService, private _dataLookupService: DataLookupService) {
 
-    this.maxYear = new Date(Date.now()).getFullYear() + 100;
-
     this.addProductForm = this._builder.group({
       name: ["", [Validators.required]],
       quantity: [1, [Validators.required]],
-      unitId: [1, [Validators.required]],
+      unitId: [Constants.NoUnitId, [Validators.required]],
       purchaseDate: [],
       expiryDate: [],
-      categoryId: [1, [Validators.required]],
-      locationStoredId: [1, [Validators.required]],
+      categoryId: [Constants.NoCategoryId, [Validators.required]],
+      locationStoredId: [Constants.NoLocationId, [Validators.required]],
       notes: [],
       daysBeforeNotify: []
     });
@@ -44,7 +43,7 @@ export class AddProductPage implements OnInit {
       this._dataLookupService.getCategories().subscribe((result) => {
         this.categories = result;
       }, () => {
-        this.showToast("Could not load categories");
+        this.showToast("Error: Could not load categories");
       });
     }
 
@@ -84,11 +83,11 @@ export class AddProductPage implements OnInit {
     let form: Product = this.addProductForm.value;
     form.status = Status.Ready;
 
-    this._productService.addProduct(form).subscribe(() => {
-      this.showToast("Product added successfully");
+    this._productService.addProduct(form).subscribe((result) => {
+      this.showToast(`${result.name} added successfully`);
       this._navCtrl.back();
     }, () => {
-      this.showToast("Error: Could not add product");
+      this.showToast(`Error: Could not add ${form.name}`);
     });
   }
 

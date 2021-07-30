@@ -12,7 +12,7 @@
   </ion-toolbar>
 
   <ion-toolbar>
-    <ion-segment [(ngModel)]="segment">
+    <ion-segment [(ngModel)]="segment" swipe-gesture=true>
       <ion-segment-button value="products">
         Products
       </ion-segment-button>
@@ -49,15 +49,20 @@
         <ion-badge slot="end" color="primary">{{product.quantity}} units</ion-badge>-->
         <ion-grid>
           <ion-row>
-            <ion-col>
+            <ion-col size="5">
               <ion-label>
                 {{product.name}}
                 <p>{{product.notes}}</p>
               </ion-label>
             </ion-col>
-            <ion-col>
+            <ion-col size="5">
               {{product.expiryDate | date}}
-              <ion-badge style="float: right;" color="primary">{{product.quantity}} units</ion-badge>
+            </ion-col>
+            <ion-col size="2">
+              <ion-badge style="float: right;" color="primary">
+                {{product.quantity}}
+                {{getUnitName(product)}}
+              </ion-badge>
             </ion-col>
           </ion-row>
         </ion-grid>

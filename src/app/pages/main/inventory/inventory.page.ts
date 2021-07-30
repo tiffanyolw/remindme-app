@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
+import { Constants } from 'src/app/data/constants';
 import { Order, Ordering } from 'src/app/interfaces/order';
 import { Product, Status } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -80,6 +81,15 @@ export class InventoryPage implements OnInit {
       return this.expiredList;
     }
     return [];
+  }
+
+  getUnitName(product: Product): string {
+    if (product.unitId === Constants.NoUnitId) {
+      return "";
+    } else if (product.quantity === 1) {
+      return product.unit.name;
+    }
+    return product.unit.pluralName || product.unit.name;
   }
 
   ionViewWillEnter() {

@@ -99,7 +99,7 @@ export class FilterPage implements OnInit {
     if (this.order.ordering === Ordering.DESC) {
       this.order.ordering = Ordering.ASC;
     } else {
-      this.order.ordering = Ordering.DESC
+      this.order.ordering = Ordering.DESC;
     }
   }
 

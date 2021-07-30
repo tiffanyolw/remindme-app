@@ -1,3 +1,6 @@
+import { Category } from "./category";
+import { Unit } from "./unit";
+
 export interface Product {
     id?: number;
     name: string;
@@ -9,7 +12,10 @@ export interface Product {
     locationStoredId: number;
     notes?: string;
     daysBeforeNotify?: number;
-    status: Status
+    status: Status,
+    category: Category,
+    locationStored: Location,
+    unit: Unit
 }
 
 export enum Status {

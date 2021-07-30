@@ -17,4 +17,4 @@ import { InventoryPage } from './inventory.page';
   ],
   declarations: [InventoryPage]
 })
-export class InventoryPageModule {}
+export class InventoryPageModule { }
