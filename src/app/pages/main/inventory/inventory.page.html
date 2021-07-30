@@ -13,11 +13,13 @@
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="segment" swipe-gesture=true>
-      <ion-segment-button value="products">
-        Products
+      <ion-segment-button value="products" layout="icon-start">
+        <ion-icon name="fish"></ion-icon>
+        <ion-label>Products</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="expired">
-        Expired
+      <ion-segment-button value="expired" layout="icon-start">
+        <ion-icon name="skull"></ion-icon>
+        <ion-label>Expired</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

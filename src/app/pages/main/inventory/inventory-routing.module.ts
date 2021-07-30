@@ -13,13 +13,13 @@ const routes: Routes = [
     loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule)
   },
   {
+    path: 'edit-product/:id',
+    loadChildren: () => import('./edit-product/edit-product.module').then( m => m.EditProductPageModule)
+  },
+  {
     path: 'filter',
     loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
   },
-  {
-    path: 'edit-product/:id',
-    loadChildren: () => import('./edit-product/edit-product.module').then( m => m.EditProductPageModule)
-  }
 ];
 
 @NgModule({
