@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public mainPages = [
-    { title: 'Inventory', url: '/inventory', icon: 'mail' },
-    { title: 'Consumed', url: '/consumption', icon: 'paper-plane' },
-    { title: 'Groceries List', url: '/groceries', icon: 'heart' }
+    { title: 'Inventory', url: '/inventory', icon: 'cube' },
+    { title: 'Consumed', url: '/consumption', icon: 'restaurant' },
+    { title: 'Shopping List', url: '/shopping-list', icon: 'cart' }
   ];
 
   public customListPages = [

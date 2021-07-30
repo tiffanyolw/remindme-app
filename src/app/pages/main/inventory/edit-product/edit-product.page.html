@@ -1,0 +1,86 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="product">{{product.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="product">
+  <form [formGroup]="updateProductForm">
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Quantity</ion-label>
+      <ion-input type="number" min="0" formControlName="quantity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Unit</ion-label>
+      <ion-select formControlName="unitId">
+        <ion-select-option *ngFor="let unit of units" [value]="unit.id">
+          {{ unit.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Purchase Date</ion-label>
+      <ion-datetime [max]="maxYear" formControlName="purchaseDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Expiry / Best Before Date</ion-label>
+      <ion-datetime [max]="maxYear" formControlName="expiryDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Category</ion-label>
+      <ion-select formControlName="categoryId">
+        <ion-select-option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Location Stored</ion-label>
+      <ion-select formControlName="locationStoredId">
+        <ion-select-option *ngFor="let location of locations" [value]="location.id">
+          {{ location.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Notes</ion-label>
+      <ion-textarea formControlName="notes"></ion-textarea>
+    </ion-item>
+    <ion-item lines="none">
+      <h5>Notifications</h5>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Days before expiry</ion-label>
+      <ion-input type="number" min="0" formControlName="daysBeforeNotify"></ion-input>
+    </ion-item>
+  </form>
+
+  <ion-button (click)="update()" [disabled]="updateProductForm.invalid">
+    Update
+  </ion-button>
+  <ion-button (click)="delete()" color="danger">
+    Delete
+  </ion-button>
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="product">
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button (click)="consume()" id="consume" layout="icon-start">
+        <ion-icon name="restaurant"></ion-icon>
+        <ion-label>Consume</ion-label>
+      </ion-segment-button>
+      <ion-segment-button (click)="trash()" id="trash" layout="icon-start">
+        <ion-icon name="trash"></ion-icon>
+        <ion-label>Trash</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

@@ -1,20 +1,25 @@
+import { Category } from "./category";
+import { Unit } from "./unit";
+
 export interface Product {
     id?: number;
     name: string;
     quantity: number;
-    unit: string;
+    unitId: number;
     purchaseDate?: Date;
     expiryDate?: Date;
-    category?: string;
-    locationStored?: string;
+    categoryId: number;
+    locationStoredId: number;
     notes?: string;
     daysBeforeNotify?: number;
-    status: Status
+    status: Status,
+    category: Category,
+    locationStored: Location,
+    unit: Unit
 }
 
 export enum Status {
     Ready = "ready",
     Consumed = "consumed",
-    Trashed = "trashed",
-    Expired = "expired"
+    Trashed = "trashed"
 }

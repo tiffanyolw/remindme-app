@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InventoryPageRoutingModule } from './inventory-routing.module';
+import { FilterPageRoutingModule } from './filter-routing.module';
 
-import { InventoryPage } from './inventory.page';
+import { FilterPage } from './filter.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InventoryPageRoutingModule
+    FilterPageRoutingModule
   ],
-  declarations: [InventoryPage]
+  declarations: [FilterPage]
 })
-export class InventoryPageModule { }
+export class FilterPageModule {}

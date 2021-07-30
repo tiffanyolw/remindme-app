@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
+import { Constants } from 'src/app/data/constants';
+import { Order, Ordering } from 'src/app/interfaces/order';
 import { Product, Status } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
+import { FilterPage } from './filter/filter.page';
 
 @Component({
   selector: 'app-inventory',
@@ -8,50 +12,87 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./inventory.page.scss'],
 })
 export class InventoryPage implements OnInit {
-  segment: string = "products";
   productsList: Product[] = [];
   expiredList: Product[] = [];
+  segment: string = "products";
 
-  constructor(private _service: ProductService) { }
+  // filtered selections
+  categories: number[] = [];
+  locations: number[] = [];
+  order: Order = {
+    orderBy: "expiryDate",
+    ordering: Ordering.ASC
+  };
 
-  private loadProducts() {
-    this._service.getProducts("ready").subscribe((result) => {
-      this.productsList = result;
-    }, () => {
-      // show message
-    });
-  }
-
-  private loadExpired() {
-    this._service.getProducts("expired").subscribe((result) => {
-      this.expiredList = result;
-    }, () => {
-      // show message
-    });
-  }
-
-  private updateExpired() {
-    let now = new Date(Date.now());
-    this.productsList.forEach((product) => {
-      if (product.expiryDate < now) {
-        product.status = Status.Expired;
-      }
-    });
-    this.expiredList.forEach((product) => {
-      if (product.expiryDate < now) {
-        product.status = Status.Ready;
-      }
-    });
+  constructor(private _modalCtrl: ModalController, private _toastCtrl: ToastController,
+    private _service: ProductService) {
   }
 
   private loadAll() {
-    this.loadExpired();
-    this.loadProducts();
+    this._service.getProducts(Status.Ready, false, this.categories, this.locations, this.order)
+      .subscribe((result) => {
+        this.productsList = result;
+      }, () => {
+        this.showToast("Error: Could not load products");
+      });
+
+    this._service.getProducts(Status.Ready, true, this.categories, this.locations, this.order)
+      .subscribe((result) => {
+        this.expiredList = result;
+      }, () => {
+        this.showToast("Error: Could not load products");
+      });
+  }
+
+  private async showToast(message: string) {
+    const toast = await this._toastCtrl.create({
+      message,
+      duration: 2000
+    });
+
+    toast.present();
+  }
+
+  async presentFilter() {
+    const modal = await this._modalCtrl.create({
+      component: FilterPage,
+      componentProps: {
+        categories: this.categories,
+        locations: this.locations,
+        order: this.order
+      }
+    });
+
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+      this.categories = data.categories;
+      this.locations = data.locations;
+      this.order = data.order;
+
+      this.loadAll();
+    }
+  }
+
+  getList(): Product[] {
+    if (this.segment === "products") {
+      return this.productsList;
+    } else if (this.segment === "expired") {
+      return this.expiredList;
+    }
+    return [];
+  }
+
+  getUnitName(product: Product): string {
+    if (product.unitId === Constants.NoUnitId) {
+      return "";
+    } else if (product.quantity === 1) {
+      return product.unit.name;
+    }
+    return product.unit.pluralName || product.unit.name;
   }
 
   ionViewWillEnter() {
-    this.loadAll();
-    this.updateExpired();
     this.loadAll();
   }
 
