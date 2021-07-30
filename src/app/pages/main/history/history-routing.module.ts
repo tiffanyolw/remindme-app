@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: HistoryPage
+  },
+  {
+    path: 'edit-product',
+    loadChildren: () => import('./edit-product/edit-product.module').then( m => m.EditProductPageModule)
   }
 ];
 

@@ -28,6 +28,15 @@ export class InventoryPage implements OnInit {
     private _service: ProductService) {
   }
 
+  private async showToast(message: string) {
+    const toast = await this._toastCtrl.create({
+      message,
+      duration: 2000
+    });
+
+    toast.present();
+  }
+
   private loadAll() {
     this._service.getProducts(Status.Ready, false, this.categories, this.locations, this.order)
       .subscribe((result) => {
@@ -42,15 +51,6 @@ export class InventoryPage implements OnInit {
       }, () => {
         this.showToast("Error: Could not load products");
       });
-  }
-
-  private async showToast(message: string) {
-    const toast = await this._toastCtrl.create({
-      message,
-      duration: 2000
-    });
-
-    toast.present();
   }
 
   async presentFilter() {
