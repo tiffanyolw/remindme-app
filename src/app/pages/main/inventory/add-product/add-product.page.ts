@@ -82,6 +82,8 @@ export class AddProductPage implements OnInit {
   onSubmit() {
     let form: Product = this.addProductForm.value;
     form.status = Status.Ready;
+    form.quantityConsumed = 0;
+    form.quantityTrashed = 0;
 
     this._productService.addProduct(form).subscribe((result) => {
       this.showToast(`${result.name} added successfully`);

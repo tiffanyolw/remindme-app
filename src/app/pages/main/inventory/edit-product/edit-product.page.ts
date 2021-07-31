@@ -72,23 +72,17 @@ export class EditProductPage implements OnInit {
     toast.present();
   }
 
-  private async showAlert(header: string, subHeader?: string, message?: string, buttons?: any[], inputs?: any[]) {
-    const alert = await this._alertCtrl.create({
-      header,
-      subHeader,
-      message,
-      buttons,
-      inputs
-    });
+  private update(data: Product, status: Status, quantityConsumed: number, quantityTrashed: number) {
+    let body = data;
+    body.status = status;
 
-    await alert.present();
-  }
+    body.quantityConsumed = this.product.quantityConsumed + quantityConsumed;
+    body.quantity = data.quantity - quantityConsumed;
 
-  update(status?: Status) {
-    let form: Product = this.updateProductForm.value;
-    form.status = status || this.product.status;
+    body.quantityTrashed = this.product.quantityTrashed + quantityTrashed;
+    body.quantity = data.quantity - quantityTrashed;
 
-    this._service.updateProduct(this.product.id, form).subscribe((result) => {
+    this._service.updateProduct(this.product.id, body).subscribe((result) => {
       this.showToast(`${result.name} successfully updated`);
       this._navCtrl.back();
     }, () => {
@@ -96,11 +90,16 @@ export class EditProductPage implements OnInit {
     });
   }
 
-  delete() {
-    this.showAlert("Delete",
-      "Are you sure you want to delete?",
-      "This action cannot be undone.",
-      [
+  onUpdate() {
+    this.update(this.updateProductForm.value, this.product.status, 0, 0);
+  }
+
+  async onDelete() {
+    const alert = await this._alertCtrl.create({
+      header: "Delete",
+      subHeader: "Are you sure you want to delete?",
+      message: "This action cannot be undone.",
+      buttons: [
         { text: "Cancel" }, {
           text: "Delete",
           handler: () => {
@@ -113,15 +112,69 @@ export class EditProductPage implements OnInit {
           }
         }
       ]
-    );
+    });
+
+    await alert.present();
   }
 
-  consume() {
-    this.update(Status.Consumed);
+  async onConsume() {
+    const alert = await this._alertCtrl.create({
+      header: "Quantity Consumed",
+      inputs: [{
+        name: "quantity",
+        type: "number",
+        min: 0,
+        max: this.product.quantity
+      }],
+      buttons: [
+        { text: "Cancel" },
+        {
+          text: "Confirm",
+          handler: (data) => {
+            let quantity: number = parseFloat(data.quantity);
+            if (quantity < 0) {
+              return;
+            } else if (quantity >= this.product.quantity) {
+              this.update(this.product, Status.Consumed, quantity, 0);
+            } else if (quantity < this.product.quantity) {
+              this.update(this.product, this.product.status, quantity, 0);
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
-  trash() {
-    this.update(Status.Trashed);
+  async onTrash() {
+    const alert = await this._alertCtrl.create({
+      header: "Quantity Trashed",
+      inputs: [{
+        name: "quantity",
+        type: "number",
+        min: 0,
+        max: this.product.quantity
+      }],
+      buttons: [
+        { text: "Cancel" },
+        {
+          text: "Confirm",
+          handler: (data) => {
+            let quantity = parseFloat(data.quantity);
+            if (quantity < 0) {
+              return;
+            } else if (quantity >= this.product.quantity) {
+              this.update(this.product, Status.Trashed, 0, quantity);
+            } else if (quantity < this.product.quantity) {
+              this.update(this.product, this.product.status, 0, quantity);
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   ionViewWillEnter() {

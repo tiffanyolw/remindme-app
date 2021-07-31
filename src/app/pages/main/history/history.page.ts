@@ -4,17 +4,17 @@ import { Constants } from 'src/app/data/constants';
 import { Order, Ordering } from 'src/app/interfaces/order';
 import { Product, Status } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
-import { FilterPage } from './filter/filter.page';
+import { FilterPage } from './../inventory/filter/filter.page';
 
 @Component({
-  selector: 'app-inventory',
-  templateUrl: './inventory.page.html',
-  styleUrls: ['./inventory.page.scss'],
+  selector: 'app-history',
+  templateUrl: './history.page.html',
+  styleUrls: ['./history.page.scss'],
 })
-export class InventoryPage implements OnInit {
-  productsList: Product[] = [];
-  expiredList: Product[] = [];
-  segment: string = "products";
+export class HistoryPage implements OnInit {
+  consumedList: Product[] = [];
+  trashedList: Product[] = [];
+  segment: string = "consumed";
 
   // filtered selections
   categories: number[] = [];
@@ -38,16 +38,16 @@ export class InventoryPage implements OnInit {
   }
 
   private loadAll() {
-    this._service.getProducts(Status.Ready, false, this.categories, this.locations, this.order)
+    this._service.getProducts(Status.Consumed, null, this.categories, this.locations, this.order)
       .subscribe((result) => {
-        this.productsList = result;
+        this.consumedList = result;
       }, () => {
         this.showToast("Error: Could not load products");
       });
 
-    this._service.getProducts(Status.Ready, true, this.categories, this.locations, this.order)
+    this._service.getProducts(Status.Trashed, null, this.categories, this.locations, this.order)
       .subscribe((result) => {
-        this.expiredList = result;
+        this.trashedList = result;
       }, () => {
         this.showToast("Error: Could not load products");
       });
@@ -75,10 +75,10 @@ export class InventoryPage implements OnInit {
   }
 
   getList(): Product[] {
-    if (this.segment === "products") {
-      return this.productsList;
-    } else if (this.segment === "expired") {
-      return this.expiredList;
+    if (this.segment === "consumed") {
+      return this.consumedList;
+    } else if (this.segment === "trashed") {
+      return this.trashedList;
     }
     return [];
   }
@@ -86,7 +86,7 @@ export class InventoryPage implements OnInit {
   getUnitName(product: Product): string {
     if (product.unitId === Constants.NoUnitId) {
       return "";
-    } else if (product.quantity == 1) {
+    } else if (product.quantityConsumed == 1) {
       return product.unit.name;
     }
     return product.unit.pluralName || product.unit.name;

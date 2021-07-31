@@ -7,15 +7,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   public mainPages = [
     { title: 'Inventory', url: '/inventory', icon: 'cube' },
-    { title: 'Consumed', url: '/consumption', icon: 'restaurant' },
+    { title: 'History', url: '/history', icon: 'time' },
     { title: 'Shopping List', url: '/shopping-list', icon: 'cart' }
-  ];
-
-  public customListPages = [
-    { title: 'Products', url: '/custom/products', icon: 'settings' },
-    { title: 'Categories', url: '/custom/categories', icon: 'log-out' },
-    { title: 'Units', url: '/custom/units', icon: 'log-out' },
-    { title: 'Storage Locations', url: '/custom/storage', icon: 'log-out' }
   ];
 
   public accountPages = [
