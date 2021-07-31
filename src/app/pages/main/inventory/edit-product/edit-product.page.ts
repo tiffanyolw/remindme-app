@@ -76,10 +76,10 @@ export class EditProductPage implements OnInit {
     let body = data;
     body.status = status;
 
-    body.quantityConsumed = (data.quantityConsumed || this.product.quantityConsumed) + quantityConsumed;
+    body.quantityConsumed = this.product.quantityConsumed + quantityConsumed;
     body.quantity = data.quantity - quantityConsumed;
 
-    body.quantityTrashed = (data.quantityTrashed || this.product.quantityTrashed) + quantityTrashed;
+    body.quantityTrashed = this.product.quantityTrashed + quantityTrashed;
     body.quantity = data.quantity - quantityTrashed;
 
     this._service.updateProduct(this.product.id, body).subscribe((result) => {
