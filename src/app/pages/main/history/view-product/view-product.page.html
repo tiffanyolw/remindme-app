@@ -10,6 +10,18 @@
 <ion-content *ngIf="product">
   <ion-list lines="none">
     <ion-item>
+      <ion-label>Quantity Consumed</ion-label>
+      <ion-label style="text-align:right" slot="end">
+        {{product.quantityConsumed}} {{getUnitName()}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Quantity Trashed</ion-label>
+      <ion-label style="text-align:right" slot="end">
+        {{product.quantityTrashed}} {{getUnitName()}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
       <ion-label>Last Updated</ion-label>
       <ion-label style="text-align:right" slot="end">
         {{product.updatedAt | date}}
@@ -21,15 +33,33 @@
         {{product.expiryDate | date}}
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="product.notes">
-      <ion-label>Notes</ion-label>
+    <ion-item *ngIf="product.purchaseDate">
+      <ion-label>Purchased On</ion-label>
       <ion-label style="text-align:right" slot="end">
-        {{product.notes}}
+        {{product.purchaseDate | date}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-label style="text-align:right" slot="end">
+        {{product.category.name}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Location Stored</ion-label>
+      <ion-label style="text-align:right" slot="end">
+        {{product.locationStored.name}}
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="product.notes">
+      <ion-label>
+        Notes
+        <p class="ion-text-wrap">
+          {{product.notes}}
+        </p>
       </ion-label>
     </ion-item>
   </ion-list>
-
-  {{product | json}}
 </ion-content>
 
 <ion-footer>

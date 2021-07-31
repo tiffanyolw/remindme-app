@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { Constants } from 'src/app/data/constants';
 import { Product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -46,6 +47,15 @@ export class ViewProductPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  getUnitName(): string {
+    if (this.product.unitId === Constants.NoUnitId) {
+      return "";
+    } else if (this.product.quantityConsumed == 1) {
+      return this.product.unit.name;
+    }
+    return this.product.unit.pluralName || this.product.unit.name;
   }
 
   ionViewWillEnter() {
