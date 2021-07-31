@@ -1,4 +1,4 @@
-export interface Grocery {
+export interface ShoppingItem {
     id?: number;
     name: string;
     quantity?: number;
@@ -8,4 +8,5 @@ export interface Grocery {
     category?: string;
     notes?: string;
     bought: boolean;
+    cleared: boolean;
 }
