@@ -62,6 +62,14 @@ export class HistoryPage implements OnInit {
       this.order = data.order;
 
       this.loadAll();
+      
+      // update storage
+      const filterOptions: { categories: number[], locations: number[], order: Order } = {
+        categories: this.categories,
+        locations: this.locations,
+        order: this.order
+      };
+      localStorage.setItem("historyFilterOptions", JSON.stringify(filterOptions));
     }
   }
 
@@ -76,6 +84,16 @@ export class HistoryPage implements OnInit {
 
   ionViewWillEnter() {
     this.loadAll();
+
+    // get from storage
+    const filterOptions: { categories: number[], locations: number[], order: Order } =
+      JSON.parse(localStorage.getItem("historyFilterOptions")!);
+    this.categories = filterOptions?.categories || [];
+    this.locations = filterOptions?.locations || [];
+    this.order = filterOptions?.order || {
+      orderBy: "expiryDate",
+      ordering: Ordering.ASC
+    };
   }
 
   ngOnInit() {

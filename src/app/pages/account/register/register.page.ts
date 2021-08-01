@@ -58,7 +58,7 @@ export class RegisterPage implements OnInit {
     this._menuCtrl.enable(false);
   }
 
-  ionViewDidLeave() {
+  ionViewWillLeave() {
     this._menuCtrl.enable(true);
   }
 
