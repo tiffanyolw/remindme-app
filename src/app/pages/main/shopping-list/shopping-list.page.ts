@@ -15,6 +15,7 @@ export class ShoppingListPage implements OnInit {
   shoppingList: ShoppingItem[] = [];
   clearedItems: ShoppingItem[] = [];
   segment: string = "tobuy";
+  isEditMode: boolean = false;
 
   // filtered selections
   categories: number[] = [];
@@ -26,7 +27,8 @@ export class ShoppingListPage implements OnInit {
   }
 
   constructor(private _toastCtrl: ToastController, private _alertCtrl: AlertController,
-    private _modalCtrl: ModalController, private _service: ShoppingService) { }
+    private _modalCtrl: ModalController, private _navCtrl: NavController,
+    private _service: ShoppingService) { }
 
   private async showToast(message: string) {
     const toast = await this._toastCtrl.create({
@@ -125,6 +127,18 @@ export class ShoppingListPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  toggleEditMode() {
+    this.isEditMode = !this.isEditMode;
+  }
+
+  onClick(item: ShoppingItem) {
+    console.log(true);
+    if (this.isEditMode || this.segment === 'archive') {
+      console.log(false);
+      this._navCtrl.navigateForward(`/shopping-list/edit-item/${item.id}`);
+    }
   }
 
   ionViewWillEnter() {

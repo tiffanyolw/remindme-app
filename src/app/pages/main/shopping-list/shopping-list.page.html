@@ -27,7 +27,7 @@
 
 <ion-content>
   <ion-list lines="full">
-    <ion-item [routerLink]="'edit-item/' + item.id" *ngFor="let item of getList()">
+    <ion-item (click)="onClick(item)" *ngFor="let item of getList()">
       <ion-label [class.bought]="item.bought">
         <h2>{{item.name}}</h2>
         <h3 *ngIf="item.categoryId">
@@ -44,7 +44,7 @@
         </h3>
         <p>{{item.notes}}</p>
       </ion-label>
-      <ion-checkbox slot="start" [(ngModel)]="item.bought" (ionChange)="toggleStatus(item)" *ngIf="segment === 'tobuy'"></ion-checkbox>
+      <ion-checkbox slot="start" [(ngModel)]="item.bought" (ionChange)="toggleStatus(item)" *ngIf="segment === 'tobuy' && !isEditMode"></ion-checkbox>
       <ion-badge *ngIf="item.quantity" color="secondary">
         {{item.quantity}}
         <span *ngIf="item.itemUnit">{{getUnitName(item)}}</span>
@@ -62,6 +62,9 @@
       </ion-fab-button>
       <ion-fab-button (click)="clearList()" color="tertiary">
         <ion-icon name="bag-remove"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="toggleEditMode()" color="tertiary">
+        <ion-icon [name]="isEditMode ? 'checkbox' : 'pencil'"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
