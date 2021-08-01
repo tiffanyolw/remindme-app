@@ -3,6 +3,7 @@ import { Unit } from "./unit";
 
 export interface ShoppingItem {
     id?: number;
+    userId?: number;
     name: string;
     quantity?: number;
     unitId?: number;

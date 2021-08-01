@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Order } from '../interfaces/order';
+import { User } from '../interfaces/user';
 import { Product, Status } from './../interfaces/product';
+import { UserService } from './account/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,11 @@ import { Product, Status } from './../interfaces/product';
 export class ProductService {
   private apiURL = `${environment.apiURL}/product`;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _userService: UserService) { }
 
   getProducts(status?: Status | Status[], expired?: boolean, categories?: number[], locations?: number[], order?: Order): Observable<Product[]> {
     let queries = [];
+    queries.push(`userId=${this._userService.getCurrentUser().id}`);
     if (status) {
       if (Array.isArray(status)) {
         queries.push(`status=${status.join("&status=")}`);
@@ -46,10 +49,12 @@ export class ProductService {
   }
 
   addProduct(body: Product): Observable<Product> {
+    body.userId = this._userService.getCurrentUser().id;
     return this._http.post<Product>(`${this.apiURL}/add`, body);
   }
 
   updateProduct(id: number, body: Product): Observable<Product> {
+    body.userId = this._userService.getCurrentUser().id;
     return this._http.put<Product>(`${this.apiURL}/update/id/${id}`, body);
   }
 
