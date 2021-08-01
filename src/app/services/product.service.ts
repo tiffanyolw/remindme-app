@@ -13,10 +13,14 @@ export class ProductService {
 
   constructor(private _http: HttpClient) { }
 
-  getProducts(status?: Status, expired?: boolean, categories?: number[], locations?: number[], order?: Order): Observable<Product[]> {
+  getProducts(status?: Status | Status[], expired?: boolean, categories?: number[], locations?: number[], order?: Order): Observable<Product[]> {
     let queries = [];
     if (status) {
-      queries.push(`status=${status}`);
+      if (Array.isArray(status)) {
+        queries.push(`status=${status.join("&status=")}`);
+      } else {
+        queries.push(`status=${status}`);
+      }
     }
     if (expired != null) {
       queries.push(`expired=${expired}`);

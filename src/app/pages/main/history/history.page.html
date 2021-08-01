@@ -10,24 +10,11 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="segment" swipe-gesture=true>
-      <ion-segment-button value="consumed" layout="icon-start">
-        <ion-icon name="restaurant"></ion-icon>
-        <ion-label>Consumed</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="trashed" layout="icon-start">
-        <ion-icon name="trash"></ion-icon>
-        <ion-label>Trashed</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list lines="full">
-    <ion-item [routerLink]="'view-product/' + product.id" *ngFor="let product of getList()">
+    <ion-item [routerLink]="'view-product/' + product.id" *ngFor="let product of productsList">
       <ion-label>
         <h2>{{product.name}}</h2>
         <h3>
@@ -40,9 +27,13 @@
         </h3>
         <p>{{product.notes}}</p>
       </ion-label>
-      <ion-badge color="danger">
-        <span *ngIf="segment === 'consumed'">{{product.quantityConsumed}}</span>
-        <span *ngIf="segment === 'trashed'">{{product.quantityTrashed}}</span>
+      <ion-badge color="success" *ngIf="product.quantityConsumed != 0">
+        {{product.quantityConsumed}}
+        {{getUnitName(product)}}
+      </ion-badge>
+      <span class="badge-spacing"></span>
+      <ion-badge color="danger" *ngIf="product.quantityTrashed != 0">
+        {{product.quantityTrashed}}
         {{getUnitName(product)}}
       </ion-badge>
     </ion-item>

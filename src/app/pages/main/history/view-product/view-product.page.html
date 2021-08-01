@@ -14,7 +14,7 @@
         <ion-icon name="scale-outline"></ion-icon>
         Consumed
       </ion-label>
-      <ion-label style="text-align:right" slot="end">
+      <ion-label class="right" slot="end">
         {{product.quantityConsumed}} {{getUnitName()}}
       </ion-label>
     </ion-item>
@@ -23,7 +23,7 @@
         <ion-icon name="scale-outline"></ion-icon>
         Trashed
       </ion-label>
-      <ion-label style="text-align:right" slot="end">
+      <ion-label class="right" slot="end">
         {{product.quantityTrashed}} {{getUnitName()}}
       </ion-label>
     </ion-item>
@@ -32,7 +32,7 @@
         <ion-icon name="hourglass-outline"></ion-icon>
         Last Updated
       </ion-label>
-      <ion-label style="text-align:right" slot="end">
+      <ion-label class="right" slot="end">
         {{product.updatedAt | date}}
       </ion-label>
     </ion-item>
@@ -41,7 +41,7 @@
         <ion-icon name="warning-outline"></ion-icon>
         Expired On
       </ion-label>
-      <ion-label style="text-align:right" slot="end">
+      <ion-label class="right" slot="end">
         {{product.expiryDate | date}}
       </ion-label>
     </ion-item>
@@ -50,7 +50,7 @@
         <ion-icon name="today-outline"></ion-icon>
         Purchased On
       </ion-label>
-      <ion-label style="text-align:right" slot="end">
+      <ion-label class="right" slot="end">
         {{product.purchaseDate | date}}
       </ion-label>
     </ion-item>
@@ -59,7 +59,7 @@
         <ion-icon name="folder-open-outline"></ion-icon>
         Category
       </ion-label>
-      <ion-label style="text-align:right" slot="end">
+      <ion-label class="right" slot="end">
         {{product.category.name}}
       </ion-label>
     </ion-item>
@@ -68,7 +68,7 @@
         <ion-icon name="location-outline"></ion-icon>
         Location Stored
       </ion-label>
-      <ion-label style="text-align:right" slot="end">
+      <ion-label class="right" slot="end">
         {{product.locationStored.name}}
       </ion-label>
     </ion-item>
