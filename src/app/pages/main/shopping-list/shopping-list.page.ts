@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { Constants } from 'src/app/data/constants';
+import { Order, Ordering } from 'src/app/interfaces/order';
+import { ShoppingItem } from 'src/app/interfaces/shoppingItem';
+import { ShoppingService } from 'src/app/services/shopping.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -6,8 +11,105 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-list.page.scss'],
 })
 export class ShoppingListPage implements OnInit {
+  shoppingList: ShoppingItem[] = [];
+  clearedItems: ShoppingItem[] = [];
+  segment: string = "tobuy";
 
-  constructor() { }
+  // filtered selections
+  categories: number[] = [];
+  stores: string[] = [];
+  isBought: boolean = null;
+  order: Order = {
+    orderBy: "createdAt",
+    ordering: Ordering.DESC
+  }
+
+  constructor(private _toastCtrl: ToastController, private _alertCtrl: AlertController,
+    private _service: ShoppingService) { }
+
+  private async showToast(message: string) {
+    const toast = await this._toastCtrl.create({
+      message,
+      duration: 2000
+    });
+
+    toast.present();
+  }
+
+  private loadAll() {
+    this._service.getItems(this.isBought, false, this.categories, this.stores, this.order)
+      .subscribe((result) => {
+        this.shoppingList = result;
+      }, () => {
+        this.showToast("Error: Could not load items");
+      });
+
+    this._service.getItems(this.isBought, true, this.categories, this.stores, this.order)
+      .subscribe((result) => {
+        this.clearedItems = result;
+      }, () => {
+        this.showToast("Error: Could not load items");
+      });
+  }
+
+  toggleStatus(item: ShoppingItem) {
+    this._service.updateItems(item.id, item).subscribe(() => { },
+      () => {
+        this.showToast(`Error: Could not update ${item.name}`);
+      });
+  }
+
+  getList(): ShoppingItem[] {
+    if (this.segment === "tobuy") {
+      return this.shoppingList;
+    } else if (this.segment === "archive") {
+      return this.clearedItems;
+    }
+    return [];
+  }
+
+  getUnitName(item: ShoppingItem): string {
+    if (item.unitId === Constants.NoUnitId) {
+      return "";
+    } else if (item.quantity == 1) {
+      return item.itemUnit.name;
+    }
+    return item.itemUnit.pluralName || item.itemUnit.name;
+  }
+
+  async clearList() {
+    const alert = await this._alertCtrl.create({
+      header: "Clear",
+      subHeader: "Are you sure you want to clear the list?",
+      buttons: [
+        { text: "Cancel" }, {
+          text: "Clear",
+          handler: () => {
+            let isUpdated = true;
+            this.shoppingList.forEach((item) => {
+              item.cleared = true;
+              this._service.updateItems(item.id, item)
+                .subscribe(() => {
+                  this.loadAll();
+                }, () => {
+                  isUpdated = false;
+                });
+            });
+
+            if (!isUpdated) {
+              this.showToast("Error: Could not update all items");
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  ionViewWillEnter() {
+    this.loadAll();
+  }
 
   ngOnInit() {
   }

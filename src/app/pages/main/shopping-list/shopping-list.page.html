@@ -13,23 +13,56 @@
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="segment" swipe-gesture=true>
-      <ion-segment-button value="To Buy" layout="icon-start">
+      <ion-segment-button value="tobuy" layout="icon-start">
         <ion-icon name="storefront"></ion-icon>
         <ion-label>To Buy</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="bought" layout="icon-start">
+      <ion-segment-button value="archive" layout="icon-start">
         <ion-icon name="bag-check"></ion-icon>
-        <ion-label>Bought</ion-label>
+        <ion-label>Archive</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list lines="full">
+    <ion-item [routerLink]="'edit-item/' + item.id" *ngFor="let item of getList()">
+      <ion-label [class.bought]="item.bought">
+        <h2>{{item.name}}</h2>
+        <h3 *ngIf="item.categoryId">
+          <ion-icon name="folder-open"></ion-icon>
+          {{item.itemCategory.name}}
+        </h3>
+        <h3 *ngIf="item.storeName">
+          <ion-icon name="storefront"></ion-icon>
+          {{item.storeName}}
+        </h3>
+        <h3 *ngIf="item.price">
+          <ion-icon name="pricetag"></ion-icon>
+          ${{item.price}}
+        </h3>
+        <p>{{item.notes}}</p>
+      </ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="item.bought" (ionChange)="toggleStatus(item)" *ngIf="segment === 'tobuy'"></ion-checkbox>
+      <ion-badge *ngIf="item.quantity" color="secondary">
+        {{item.quantity}}
+        <span *ngIf="item.itemUnit">{{getUnitName(item)}}</span>
+      </ion-badge>
+    </ion-item>
+  </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
-      <ion-icon name="add" routerLink="add-item"></ion-icon>
+      <ion-icon md="caret-up" ios="chevron-up-circle-outline"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button routerLink="add-item" color="tertiary">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="clearList()" color="tertiary">
+        <ion-icon name="bag-remove"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 </ion-content>

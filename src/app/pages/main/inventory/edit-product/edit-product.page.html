@@ -10,11 +10,22 @@
 <ion-content *ngIf="product">
   <form [formGroup]="updateProductForm">
     <ion-item>
-      <ion-label position="floating">Name</ion-label>
+      <ion-label position="floating">
+        <ion-icon name="text-outline"></ion-icon>
+        Name
+      </ion-label>
       <ion-input formControlName="name"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label position="floating">Quantity</ion-label>
+    <ion-item lines="none">
+      <label>
+        <h5>
+          <ion-icon name="scale-outline"></ion-icon>
+          Quantity
+        </h5>
+      </label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="floating">Amount</ion-label>
       <ion-input type="number" min="0" formControlName="quantity"></ion-input>
     </ion-item>
     <ion-item>
@@ -26,15 +37,24 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Purchase Date</ion-label>
+      <ion-label position="floating">
+        <ion-icon name="today-outline"></ion-icon>
+        Purchase Date
+      </ion-label>
       <ion-datetime [max]="maxYear" formControlName="purchaseDate"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Expiry / Best Before Date</ion-label>
+      <ion-label position="floating">
+        <ion-icon name="today-outline"></ion-icon>
+        Expiry / Best Before Date
+      </ion-label>
       <ion-datetime [max]="maxYear" formControlName="expiryDate"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Category</ion-label>
+      <ion-label position="floating">
+        <ion-icon name="folder-open-outline"></ion-icon>
+        Category
+      </ion-label>
       <ion-select formControlName="categoryId">
         <ion-select-option *ngFor="let category of categories" [value]="category.id">
           {{ category.name }}
@@ -42,7 +62,10 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Location Stored</ion-label>
+      <ion-label position="floating">
+        <ion-icon name="location-outline"></ion-icon>
+        Location Stored
+      </ion-label>
       <ion-select formControlName="locationStoredId">
         <ion-select-option *ngFor="let location of locations" [value]="location.id">
           {{ location.name }}
@@ -50,11 +73,19 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Notes</ion-label>
+      <ion-label position="floating">
+        <ion-icon name="create-outline"></ion-icon>
+        Notes
+      </ion-label>
       <ion-textarea formControlName="notes"></ion-textarea>
     </ion-item>
     <ion-item lines="none">
-      <h5>Notifications</h5>
+      <label>
+        <h5>
+          <ion-icon name="notifications-outline"></ion-icon>
+          Notifications
+        </h5>
+      </label>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Days before expiry</ion-label>

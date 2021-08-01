@@ -41,15 +41,19 @@ export class ShoppingService {
     return this._http.get<ShoppingItem[]>(this.apiURL + queryString);
   }
 
+  getItemById(id: number): Observable<ShoppingItem> {
+    return this._http.get<ShoppingItem>(`${this.apiURL}/id/${id}`);
+  }
+
   addItem(body: ShoppingItem): Observable<ShoppingItem> {
     return this._http.post<ShoppingItem>(`${this.apiURL}/add`, body);
   }
 
-  updateGrocery(id: number, body: ShoppingItem): Observable<ShoppingItem> {
+  updateItems(id: number, body: ShoppingItem): Observable<ShoppingItem> {
     return this._http.put<ShoppingItem>(`${this.apiURL}/update/id/${id}`, body);
   }
 
-  deleteGrocery(id: number): Observable<ShoppingItem> {
+  deleteItems(id: number): Observable<ShoppingItem> {
     return this._http.delete<ShoppingItem>(`${this.apiURL}/delete/id/${id}}`);
   }
 }

@@ -86,7 +86,7 @@ export class InventoryPage implements OnInit {
   getUnitName(product: Product): string {
     if (product.unitId === Constants.NoUnitId) {
       return "";
-    } else if (product.quantity == 1) {
+    } else if (product.quantity === 1) {
       return product.unit.name;
     }
     return product.unit.pluralName || product.unit.name;

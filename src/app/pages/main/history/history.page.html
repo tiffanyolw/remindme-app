@@ -29,8 +29,15 @@
   <ion-list lines="full">
     <ion-item [routerLink]="'view-product/' + product.id" *ngFor="let product of getList()">
       <ion-label>
-        <h2 class="name">{{product.name}}</h2>
-        <h3>{{product.locationStored.name}} &vert; {{product.category.name}}</h3>
+        <h2>{{product.name}}</h2>
+        <h3>
+          <ion-icon name="location"></ion-icon>
+          {{product.locationStored.name}}
+        </h3>
+        <h3>
+          <ion-icon name="folder-open"></ion-icon>
+          {{product.category.name}}
+        </h3>
         <p>{{product.notes}}</p>
       </ion-label>
       <ion-badge color="danger">

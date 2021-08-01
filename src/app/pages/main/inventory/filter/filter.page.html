@@ -19,7 +19,10 @@
 
 <ion-content>
   <ion-item lines="none">
-    <ion-label>Sort By</ion-label>
+    <ion-label>
+      <ion-icon name="swap-vertical-outline"></ion-icon>
+      Sort By
+    </ion-label>
     <ion-select [value]="order.orderBy" [(ngModel)]="order.orderBy">
       <ion-select-option value="expiryDate">
         Expiry Date
@@ -44,7 +47,10 @@
 
   <ion-list>
     <ion-list-header>
-      <h5>Categories</h5>
+      <h5>
+        <ion-icon name="folder-open-outline"></ion-icon>
+        Categories
+      </h5>
     </ion-list-header>
     <ion-item (click)="toggleAllCategories(true)" lines="">
       <ion-label>All Categories</ion-label>
@@ -57,7 +63,10 @@
 
   <ion-list>
     <ion-list-header>
-      <h5>Location Stored</h5>
+      <h5>
+        <ion-icon name="location-outline"></ion-icon>
+        Location Stored
+      </h5>
     </ion-list-header>
     <ion-item (click)="toggleAllLocations(true)" lines="">
       <ion-label>All Locations</ion-label>
