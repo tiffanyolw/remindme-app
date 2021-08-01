@@ -1,0 +1,34 @@
+<ion-content>
+  <div class="container">
+    <form [formGroup]="registerForm">
+      <ion-item>
+        <ion-input formControlName="firstName" placeholder="First Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="lastName" placeholder="Last Name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="email" placeholder="Email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [type]="showPassword?'text':'password'" formControlName="password" placeholder="Password">
+        </ion-input>
+        <ion-button fill="clear" (click)="toggleVisiblePassword()">
+          <ion-icon slot="icon-only" [name]="showPassword?'eye-outline':'eye-off-outline'"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </form>
+
+    <ion-button (click)="register()" [disabled]="registerForm.invalid" expand="block">
+      Register
+    </ion-button>
+  </div>
+</ion-content>
+
+<ion-footer color="transparent">
+  <div class="footer">
+    <small>
+      Already have an account? <a routerLink="/login">Log In</a>
+    </small>
+  </div>
+</ion-footer>

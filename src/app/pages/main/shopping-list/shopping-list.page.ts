@@ -78,6 +78,13 @@ export class ShoppingListPage implements OnInit {
       this.order = data.order;
 
       this.loadAll();
+
+      // update storage
+      const filterOptions: { categories: number[], order: Order } = {
+        categories: this.categories,
+        order: this.order
+      };
+      localStorage.setItem("shoppingListFilterOptions", JSON.stringify(filterOptions));
     }
   }
 
@@ -143,6 +150,15 @@ export class ShoppingListPage implements OnInit {
 
   ionViewWillEnter() {
     this.loadAll();
+
+    // get from storage
+    const filterOptions: { categories: number[], order: Order } =
+      JSON.parse(localStorage.getItem("shoppingListFilterOptions")!);
+    this.categories = filterOptions?.categories || [];
+    this.order = {
+      orderBy: "createdAt",
+      ordering: Ordering.DESC
+    }
   }
 
   ngOnInit() {

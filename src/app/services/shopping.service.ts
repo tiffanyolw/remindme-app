@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Order } from '../interfaces/order';
 import { ShoppingItem } from '../interfaces/shoppingItem';
+import { User } from '../interfaces/user';
+import { UserService } from './account/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,11 @@ import { ShoppingItem } from '../interfaces/shoppingItem';
 export class ShoppingService {
   private apiURL = `${environment.apiURL}/shopping`;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _userService: UserService) { }
 
   getItems(bought?: boolean, cleared?: boolean, categories?: number[], stores?: string[], order?: Order): Observable<ShoppingItem[]> {
     let queries = [];
+    queries.push(`userId=${this._userService.getCurrentUser().id}`);
     if (bought != null) {
       queries.push(`bought=${bought}`);
     }
@@ -46,10 +49,12 @@ export class ShoppingService {
   }
 
   addItem(body: ShoppingItem): Observable<ShoppingItem> {
+    body.userId = this._userService.getCurrentUser().id;
     return this._http.post<ShoppingItem>(`${this.apiURL}/add`, body);
   }
 
   updateItems(id: number, body: ShoppingItem): Observable<ShoppingItem> {
+    body.userId = this._userService.getCurrentUser().id;
     return this._http.put<ShoppingItem>(`${this.apiURL}/update/id/${id}`, body);
   }
 
