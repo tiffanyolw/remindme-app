@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, MenuController, NavController } from '@ionic/angular';
 import { UserService } from 'src/app/services/account/user.service';
 
 @Component({
@@ -13,7 +13,8 @@ export class RegisterPage implements OnInit {
   showPassword: boolean = false;
 
   constructor(private _builder: FormBuilder, private _alertCtrl: AlertController,
-    private _navCtrl: NavController, private _service: UserService) {
+    private _navCtrl: NavController, private _menuCtrl: MenuController,
+    private _service: UserService) {
     this.registerForm = _builder.group({
       firstName: ["", [Validators.required]],
       lastName: ["", [Validators.required]],
@@ -51,6 +52,14 @@ export class RegisterPage implements OnInit {
 
   toggleVisiblePassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  ionViewWillEnter() {
+    this._menuCtrl.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this._menuCtrl.enable(true);
   }
 
   ngOnInit() {
