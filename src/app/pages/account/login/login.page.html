@@ -1,0 +1,28 @@
+<ion-content>
+  <div class="container">
+    <form [formGroup]="loginForm">
+      <ion-item>
+        <ion-input formControlName="email" placeholder="Email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [type]="showPassword?'text':'password'" formControlName="password" placeholder="Password">
+        </ion-input>
+        <ion-button fill="clear" (click)="toggleVisiblePassword()">
+          <ion-icon slot="icon-only" [name]="showPassword?'eye-outline':'eye-off-outline'"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </form>
+
+    <ion-button (click)="login()" expand="block">
+      Log In
+    </ion-button>
+  </div>
+</ion-content>
+
+<ion-footer color="transparent">
+  <div class="footer">
+    <small>
+      Don't have an account? <a routerLink="/register">Sign up</a>
+    </small>
+  </div>
+</ion-footer>
