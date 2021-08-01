@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { Constants } from 'src/app/data/constants';
 import { Order, Ordering } from 'src/app/interfaces/order';
 import { ShoppingItem } from 'src/app/interfaces/shoppingItem';
 import { ShoppingService } from 'src/app/services/shopping.service';
+import { FilterPage } from './filter/filter.page';
 
 @Component({
   selector: 'app-shopping-list',
@@ -25,7 +26,7 @@ export class ShoppingListPage implements OnInit {
   }
 
   constructor(private _toastCtrl: ToastController, private _alertCtrl: AlertController,
-    private _service: ShoppingService) { }
+    private _modalCtrl: ModalController, private _service: ShoppingService) { }
 
   private async showToast(message: string) {
     const toast = await this._toastCtrl.create({
@@ -57,6 +58,25 @@ export class ShoppingListPage implements OnInit {
       () => {
         this.showToast(`Error: Could not update ${item.name}`);
       });
+  }
+
+  async presentFilter() {
+    const modal = await this._modalCtrl.create({
+      component: FilterPage,
+      componentProps: {
+        categories: this.categories,
+        order: this.order
+      }
+    });
+
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+      this.categories = data.categories;
+      this.order = data.order;
+
+      this.loadAll();
+    }
   }
 
   getList(): ShoppingItem[] {
