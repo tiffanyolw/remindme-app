@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { UserService } from './services/account/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -11,10 +13,10 @@ export class AppComponent {
     { title: 'Shopping List', url: '/shopping-list', icon: 'cart' }
   ];
 
-  public accountPages = [
-    { title: 'Account Settings', url: '/account/account-settings', icon: 'settings' },
-    { title: 'Log Out', url: '/account/logout', icon: 'log-out' }
-  ];
+  constructor(private _navCtrl: NavController, private _userService: UserService) { }
 
-  constructor() {}
+  logout() {
+    this._userService.logout();
+    this._navCtrl.navigateBack("login");
+  }
 }

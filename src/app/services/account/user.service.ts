@@ -20,6 +20,10 @@ export class UserService {
     return this._http.post<User>(`${this.apiURL}/register`, body);
   }
 
+  logout() {
+    return localStorage.removeItem("currentUser");
+  }
+
   getCurrentUser(): User {
     return JSON.parse(localStorage.getItem("currentUser")!);
   }

@@ -14,14 +14,24 @@
           </ion-menu-toggle>
         </ion-list>
 
-        <ion-list>
+        <ion-list lines="none">
           <ion-list-header>Account</ion-list-header>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of accountPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
-              routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/account/account-settings" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="person"></ion-icon>
+              <ion-label>
+                Account Settings
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item button (click)="logout()" detail="false">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label>
+                Logout
+              </ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
