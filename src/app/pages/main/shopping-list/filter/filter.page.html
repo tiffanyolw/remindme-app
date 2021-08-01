@@ -24,20 +24,17 @@
       Sort By
     </ion-label>
     <ion-select [value]="order.orderBy" [(ngModel)]="order.orderBy">
-      <ion-select-option value="expiryDate">
-        Expiry Date
-      </ion-select-option>
-      <ion-select-option value="purchaseDate">
-        Purchase Date
-      </ion-select-option>
-      <ion-select-option value="name">
-        Name
-      </ion-select-option>
       <ion-select-option value="createdAt">
         Date Created
       </ion-select-option>
       <ion-select-option value="updatedAt">
         Last Updated
+      </ion-select-option>
+      <ion-select-option value="name">
+        Name
+      </ion-select-option>
+      <ion-select-option value="price">
+        Price
       </ion-select-option>
     </ion-select>
     <ion-button fill="clear" (click)="toggleOrdering()">
@@ -58,22 +55,6 @@
     <ion-item *ngFor="let category of selectedCategories" lines="none">
       <ion-label>{{ category.name }}</ion-label>
       <ion-checkbox [(ngModel)]="category.isChecked" slot="end"></ion-checkbox>
-    </ion-item>
-  </ion-list>
-
-  <ion-list>
-    <ion-list-header>
-      <h5>
-        <ion-icon name="location-outline"></ion-icon>
-        Location Stored
-      </h5>
-    </ion-list-header>
-    <ion-item (click)="toggleAllLocations(true)" lines="">
-      <ion-label>All Locations</ion-label>
-    </ion-item>
-    <ion-item *ngFor="let location of selectedLocations" lines="none">
-      <ion-label>{{ location.name }}</ion-label>
-      <ion-checkbox [(ngModel)]="location.isChecked" slot="end"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>

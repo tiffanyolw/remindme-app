@@ -12,9 +12,7 @@ import { FilterPage } from './../inventory/filter/filter.page';
   styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage implements OnInit {
-  consumedList: Product[] = [];
-  trashedList: Product[] = [];
-  segment: string = "consumed";
+  productsList: Product[] = [];
 
   // filtered selections
   categories: number[] = [];
@@ -38,16 +36,9 @@ export class HistoryPage implements OnInit {
   }
 
   private loadAll() {
-    this._service.getProducts(Status.Consumed, null, this.categories, this.locations, this.order)
+    this._service.getProducts([Status.Consumed, Status.Trashed], null, this.categories, this.locations, this.order)
       .subscribe((result) => {
-        this.consumedList = result;
-      }, () => {
-        this.showToast("Error: Could not load products");
-      });
-
-    this._service.getProducts(Status.Trashed, null, this.categories, this.locations, this.order)
-      .subscribe((result) => {
-        this.trashedList = result;
+        this.productsList = result;
       }, () => {
         this.showToast("Error: Could not load products");
       });
@@ -74,19 +65,10 @@ export class HistoryPage implements OnInit {
     }
   }
 
-  getList(): Product[] {
-    if (this.segment === "consumed") {
-      return this.consumedList;
-    } else if (this.segment === "trashed") {
-      return this.trashedList;
-    }
-    return [];
-  }
-
   getUnitName(product: Product): string {
     if (product.unitId === Constants.NoUnitId) {
       return "";
-    } else if (product.quantityConsumed == 1) {
+    } else if (product.quantityConsumed === 1) {
       return product.unit.name;
     }
     return product.unit.pluralName || product.unit.name;

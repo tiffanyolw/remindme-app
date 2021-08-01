@@ -3,12 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Add Product</ion-title>
+    <ion-title *ngIf="item">{{item.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form [formGroup]="addProductForm">
+<ion-content *ngIf="item">
+  <form [formGroup]="updateItemForm">
     <ion-item>
       <ion-label position="floating">
         <ion-icon name="text-outline"></ion-icon>
@@ -24,7 +24,7 @@
         </h5>
       </label>
     </ion-item>
-    <ion-item lines="none">
+    <ion-item>
       <ion-label position="floating">Amount</ion-label>
       <ion-input type="number" min="0" formControlName="quantity"></ion-input>
     </ion-item>
@@ -35,20 +35,6 @@
           {{ unit.name }}
         </ion-select-option>
       </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        <ion-icon name="today-outline"></ion-icon>
-        Purchase Date
-      </ion-label>
-      <ion-datetime [max]="maxYear" formControlName="purchaseDate"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        <ion-icon name="warning-outline"></ion-icon>
-        Expiry / Best Before Date
-      </ion-label>
-      <ion-datetime [max]="maxYear" formControlName="expiryDate"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label position="floating">
@@ -63,14 +49,17 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">
-        <ion-icon name="location-outline"></ion-icon>
-        Location Stored
+        <ion-icon name="storefront-outline"></ion-icon>
+        Store Name
       </ion-label>
-      <ion-select formControlName="locationStoredId">
-        <ion-select-option *ngFor="let location of locations" [value]="location.id">
-          {{ location.name }}
-        </ion-select-option>
-      </ion-select>
+      <ion-input formControlName="storeName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        <ion-icon name="pricetag-outline"></ion-icon>
+        Price
+      </ion-label>
+      <ion-input type="number" min="0" formControlName="price"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">
@@ -79,25 +68,12 @@
       </ion-label>
       <ion-textarea formControlName="notes"></ion-textarea>
     </ion-item>
-    <ion-item lines="none">
-      <label>
-        <h5>
-          <ion-icon name="notifications-outline"></ion-icon>
-          Notifications
-        </h5>
-      </label>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        Days before expiry
-      </ion-label>
-      <ion-input type="number" min="0" formControlName="daysBeforeNotify"></ion-input>
-    </ion-item>
   </form>
-</ion-content>
 
-<ion-footer>
-  <ion-button (click)="onSubmit()" [disabled]="addProductForm.invalid" class="ion-no-margin" expand="full">
-    <ion-label>Add</ion-label>
+  <ion-button (click)="onUpdate()" [disabled]="updateItemForm.invalid">
+    Update
   </ion-button>
-</ion-footer>
+  <ion-button (click)="onDelete()" color="danger">
+    Delete
+  </ion-button>
+</ion-content>
