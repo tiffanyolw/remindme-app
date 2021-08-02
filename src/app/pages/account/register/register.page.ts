@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, MenuController, NavController } from '@ionic/angular';
+import { Constants } from 'src/app/data/constants';
 import { UserService } from 'src/app/services/account/user.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { UserService } from 'src/app/services/account/user.service';
 export class RegisterPage implements OnInit {
   registerForm: FormGroup;
   showPassword: boolean = false;
+  minPasswordLen: number = Constants.passwordMinLength;
 
   constructor(private _builder: FormBuilder, private _alertCtrl: AlertController,
     private _navCtrl: NavController, private _menuCtrl: MenuController,
@@ -19,13 +21,13 @@ export class RegisterPage implements OnInit {
       firstName: ["", [Validators.required]],
       lastName: ["", [Validators.required]],
       email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required]]
+      password: ["", [Validators.required, Validators.minLength(this.minPasswordLen)]]
     });
   }
 
-  private async showAlert(subHeader: string, message: string, buttons: any[], backdropDismiss?: boolean) {
+  private async showAlert(header: string, message: string, buttons: any[]) {
     const alert = await this._alertCtrl.create({
-      subHeader,
+      header,
       message,
       buttons
     });

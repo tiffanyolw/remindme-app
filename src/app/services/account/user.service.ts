@@ -24,6 +24,14 @@ export class UserService {
     return localStorage.removeItem("currentUser");
   }
 
+  updateUser(body: User) {
+    return this._http.patch<User>(`${this.apiURL}/update/user/${this.getCurrentUser().id}`, body);
+  }
+
+  updateUserPassword(body: any) {
+    return this._http.patch<User>(`${this.apiURL}/update-password/user/${this.getCurrentUser().id}`, body);
+  }
+
   getCurrentUser(): User {
     return JSON.parse(localStorage.getItem("currentUser")!);
   }

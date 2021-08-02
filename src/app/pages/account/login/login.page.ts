@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
 
   private async showAlert() {
     const alert = await this._alertCtrl.create({
-      subHeader: "Incorrect Email/Password",
+      header: "Incorrect Email/Password",
       message: "Please try again.",
       buttons: ["Try Again"]
     });

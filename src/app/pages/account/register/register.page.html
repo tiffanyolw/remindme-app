@@ -17,6 +17,11 @@
           <ion-icon slot="icon-only" [name]="showPassword?'eye-outline':'eye-off-outline'"></ion-icon>
         </ion-button>
       </ion-item>
+      <ion-item lines="none">
+        <ion-note>
+          * Password must be at least {{minPasswordLen}} characters long
+        </ion-note>
+      </ion-item>
     </form>
 
     <ion-button (click)="register()" [disabled]="registerForm.invalid" expand="block">

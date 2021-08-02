@@ -49,13 +49,23 @@ export class ViewProductPage implements OnInit {
     await alert.present();
   }
 
-  getUnitName(): string {
+  getUnit(quantity: number) {
     if (this.product.unitId === Constants.NoUnitId) {
       return "";
-    } else if (this.product.quantityConsumed == 1) {
+    } else if (quantity == 1) {
       return this.product.unit.name;
     }
     return this.product.unit.pluralName || this.product.unit.name;
+  }
+
+  getConsumed(): string {
+    let quantity = this.product.quantityConsumed;
+    return `${quantity} ${this.getUnit(quantity)}`;
+  }
+
+  getTrashed() {
+    let quantity = this.product.quantityTrashed;
+    return `${quantity} ${this.getUnit(quantity)}`;
   }
 
   ionViewWillEnter() {

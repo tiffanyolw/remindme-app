@@ -14,10 +14,6 @@ export class ProductService {
 
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
-  private getApiURL() {
-    return this.apiURL + `/user/${this._userService.getCurrentUser().id}`;
-  }
-
   getProducts(status?: Status | Status[], expired?: boolean, categories?: number[], locations?: number[], order?: Order): Observable<Product[]> {
     let queries = [];
     if (status) {
@@ -43,24 +39,24 @@ export class ProductService {
 
     let queryString = queries.length > 0 ? `?${queries.join("&")}` : "";
 
-    return this._http.get<Product[]>(this.getApiURL() + queryString);
+    return this._http.get<Product[]>(`${this.apiURL}/user/${this._userService.getCurrentUser().id}${queryString}`);
   }
 
   getProductById(id: number): Observable<Product> {
-    return this._http.get<Product>(`${this.getApiURL()}/id/${id}`);
+    return this._http.get<Product>(`${this.apiURL}/id/${id}`);
   }
 
   addProduct(body: Product): Observable<Product> {
     body.userId = this._userService.getCurrentUser().id;
-    return this._http.post<Product>(`${this.getApiURL()}/add`, body);
+    return this._http.post<Product>(`${this.apiURL}/add`, body);
   }
 
   updateProduct(id: number, body: Product): Observable<Product> {
     body.userId = this._userService.getCurrentUser().id;
-    return this._http.put<Product>(`${this.getApiURL()}/update/id/${id}`, body);
+    return this._http.put<Product>(`${this.apiURL}/update/id/${id}`, body);
   }
 
   deleteProduct(id: number): Observable<Product> {
-    return this._http.delete<Product>(`${this.getApiURL()}/delete/id/${id}}`);
+    return this._http.delete<Product>(`${this.apiURL}/delete/id/${id}}`);
   }
 }
