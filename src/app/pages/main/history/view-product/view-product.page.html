@@ -15,7 +15,7 @@
         Consumed
       </ion-label>
       <ion-label class="right" slot="end">
-        {{product.quantityConsumed}} {{getUnitName()}}
+        {{getConsumed()}}
       </ion-label>
     </ion-item>
     <ion-item>
@@ -24,7 +24,7 @@
         Trashed
       </ion-label>
       <ion-label class="right" slot="end">
-        {{product.quantityTrashed}} {{getUnitName()}}
+        {{getTrashed()}}
       </ion-label>
     </ion-item>
     <ion-item>

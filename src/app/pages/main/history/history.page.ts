@@ -62,7 +62,7 @@ export class HistoryPage implements OnInit {
       this.order = data.order;
 
       this.loadAll();
-      
+
       // update storage
       const filterOptions: { categories: number[], locations: number[], order: Order } = {
         categories: this.categories,
@@ -73,13 +73,23 @@ export class HistoryPage implements OnInit {
     }
   }
 
-  getUnitName(product: Product): string {
+  getUnit(product: Product, quantity: number) {
     if (product.unitId === Constants.NoUnitId) {
       return "";
-    } else if (product.quantityConsumed === 1) {
+    } else if (quantity === 1) {
       return product.unit.name;
     }
     return product.unit.pluralName || product.unit.name;
+  }
+
+  getConsumed(product: Product): string {
+    let quantity = product.quantityConsumed;
+    return `${quantity} ${this.getUnit(product, quantity)}`;
+  }
+
+  getTrashed(product: Product) {
+    let quantity = product.quantityTrashed;
+    return `${quantity} ${this.getUnit(product, quantity)}`;
   }
 
   ionViewWillEnter() {
