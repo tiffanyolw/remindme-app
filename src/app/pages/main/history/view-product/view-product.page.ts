@@ -52,7 +52,7 @@ export class ViewProductPage implements OnInit {
   getUnit(quantity: number) {
     if (this.product.unitId === Constants.NoUnitId) {
       return "";
-    } else if (quantity == 1) {
+    } else if (quantity === 1) {
       return this.product.unit.name;
     }
     return this.product.unit.pluralName || this.product.unit.name;

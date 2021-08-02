@@ -76,7 +76,7 @@ export class HistoryPage implements OnInit {
   getUnit(product: Product, quantity: number) {
     if (product.unitId === Constants.NoUnitId) {
       return "";
-    } else if (quantity == 1) {
+    } else if (quantity === 1) {
       return product.unit.name;
     }
     return product.unit.pluralName || product.unit.name;
