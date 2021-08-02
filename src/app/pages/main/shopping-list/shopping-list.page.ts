@@ -141,9 +141,7 @@ export class ShoppingListPage implements OnInit {
   }
 
   onClick(item: ShoppingItem) {
-    console.log(true);
     if (this.isEditMode || this.segment === 'archive') {
-      console.log(false);
       this._navCtrl.navigateForward(`/shopping-list/edit-item/${item.id}`);
     }
   }
