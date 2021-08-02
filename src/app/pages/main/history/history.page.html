@@ -28,13 +28,11 @@
         <p>{{product.notes}}</p>
       </ion-label>
       <ion-badge color="success" *ngIf="product.quantityConsumed != 0">
-        {{product.quantityConsumed}}
-        {{getUnitName(product)}}
+        {{getConsumed(product)}}
       </ion-badge>
       <span class="badge-spacing"></span>
       <ion-badge color="danger" *ngIf="product.quantityTrashed != 0">
-        {{product.quantityTrashed}}
-        {{getUnitName(product)}}
+        {{getTrashed(product)}}
       </ion-badge>
     </ion-item>
   </ion-list>
