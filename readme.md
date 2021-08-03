@@ -7,8 +7,8 @@ A inventory and shopping list tracker to keep track of what is expiring and what
     - Can also call backend with any user and manipulate data without being logged in
 
 ## Contents
-[Basic Functionality]("_Docs/functionality.md")
-[Future Plans]("_Docs/todo.md")
+- [Basic Functionality](_Docs/functionality.md)
+- [Future Plans](_Docs/todo.md)
 
 ## Technology
 - Ionic with Angular
