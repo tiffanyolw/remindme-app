@@ -1,0 +1,17 @@
+# Future Plans
+- Add/Edit categories, locations, units; store with userId
+- Add a store name table and sort by store name in shopping list
+- Proper Authentication
+- Notifications using value from `daysBeforeExpiry`
+- Search for a product/item
+- When shopping item is checked, prompt to add to inventory (FK in product table to shopping item id)
+- Show consumed and trashed segments in history with products that have been consumed and trashed in both
+- Show `x products expiring in y days` according to the filter and user defined x and y in settings
+- Use ionic storage: https://ionicframework.com/docs/angular/storage
+- Add sub-categories
+- Use infinite scroll to only load x number of products/items at a time
+- View list of opened and unopened products
+- Multiple lists for different shoppings lists and inventory lists
+- Add categories, locations, and units to the tables through Add Product/Item and Edit Product/Item pages (i.e. find and create)
+- Take a picture of the product
+- Add a user to the lists
