@@ -12,8 +12,8 @@ import { FilterPage } from './filter/filter.page';
   styleUrls: ['./shopping-list.page.scss'],
 })
 export class ShoppingListPage implements OnInit {
-  shoppingList: ShoppingItem[] = [];
-  clearedItems: ShoppingItem[] = [];
+  shoppingList: ShoppingItem[];
+  clearedItems: ShoppingItem[];
   segment: string = "tobuy";
   isEditMode: boolean = false;
 

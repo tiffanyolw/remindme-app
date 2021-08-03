@@ -12,7 +12,7 @@ import { FilterPage } from './../inventory/filter/filter.page';
   styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage implements OnInit {
-  productsList: Product[] = [];
+  productsList: Product[];
 
   // filtered selections
   categories: number[] = [];
