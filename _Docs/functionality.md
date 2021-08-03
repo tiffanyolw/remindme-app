@@ -1,13 +1,13 @@
 # Functionality (for testing)
 
-## Login
+## Login 
 - Toggle password visible/not visible
 - Side menu not shown
 - Alert shown if could not log in
 - Sign up link takes user to register page
 - Successful login takes user to inventory page
 
-[login](screenshots/login.PNG)
+<img src="screenshots/login.PNG" width="150">
 
 ## Register
 - Toggle password visible/not visible
@@ -21,14 +21,14 @@
 - Fields are cleared only after successfully creating an account
 - Log in link takes user to log in page
 
-[register](screenshots/register.PNG)
+<img src="screenshots/register.PNG" width="150">
 
 ## All pages except login and register
 - Redirects back to log in page if not logged in
 - Only contains information for the current logged in user
 - Side menu works
 
-[menu](screenshots/menu.PNG)
+<img src="screenshots/menu.PNG" width="150">
 
 ## Inventory
 - Products segment shows all products that are not expired nor consumed/trashed
@@ -46,9 +46,7 @@
 - Clicking the + fab button takes user to the add product page
 - Toast shown if could not load products
 
-[inventory](screenshots/inventory.PNG)
-
-[filter](screenshots/product-filter.PNG)
+<img src="screenshots/inventory.PNG" width="150"> <img src="screenshots/product-filter.PNG" width="150">
 
 ### Add Product
 - Back button goes back with no changes
@@ -61,7 +59,7 @@
 - Add button redirects back on successful add
 - Toast shown on successful and unsuccessful add
 
-[add product](screenshots/add-product.PNG)
+<img src="screenshots/add-product.PNG" width="150">
 
 ### Edit Product
 - Header contains the product name
@@ -81,7 +79,7 @@
 - Toast shown if could not load the product
 - Toast shown after every successful and unsuccessful change
 
-[edit product](screenshots/edit-product.PNG)
+<img src="screenshots/edit-product.PNG" width="150">
 
 ## History
 - Shows all products that are consumed/trashed
@@ -92,7 +90,7 @@
 - Clicking on a product redirects to view product page
 - Toast shown if could not load products
 
-[history](screenshots/history.PNG)
+<img src="screenshots/history.PNG" width="150">
 
 ### View Product
 - Header contains the product name
@@ -107,7 +105,7 @@
 - Toast shown if could not load the product
 - Toast shown on successful and unsuccessful delete
 
-[view product](screenshots/view-product.PNG)
+<img src="screenshots/view-product.PNG" width="150">
 
 ## Shopping List
 - To Buy segment shows shopping items as a checklist, Archive shows cleared items
@@ -131,7 +129,7 @@
 - Clicking on an item in Archive or in To Buy edit mode takes user to edit item page
 - Toast is shown if could not load items
 
-[shopping](screenshots/shopping-list.PNG)
+<img src="screenshots/shopping-list.PNG" width="150">
 
 ### Add Item
 - Back button redirects back
@@ -140,7 +138,7 @@
 - Add button is disabled until all required fields are filled and valid
 - Toast shown on successful and unsuccessful add
 
-[add item](screenshots/add-item.PNG)
+<img src="screenshots/add-item.PNG" width="150">
 
 ### Edit Item
 - Back button redirects back
@@ -153,7 +151,7 @@
 - Toast shown if could not load the item
 - Toast shown on successful and unsuccessful update and delete
 
-[edit item](screenshots/edit-item.PNG)
+<img src="screenshots/edit-item.PNG" width="150">
 
 ## Account Settings
 - Pre-filled with current user information, except password
@@ -163,7 +161,7 @@
 - Alert on unsuccessful updates
 - Toast on successful updates
 
-[account settings](screenshots/account-settings.PNG)
+<img src="screenshots/account-settings.PNG" width="150">
 
 ## Logout
 - Log out current user and redirects to log in page
