@@ -25,7 +25,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="shoppingList && clearedItems">
+  <ion-item *ngIf="getList().length == 0" lines="none">
+    No items found
+  </ion-item>
+
   <ion-list lines="full">
     <ion-item (click)="onClick(item)" *ngFor="let item of getList()">
       <ion-label [class.bought]="item.bought">

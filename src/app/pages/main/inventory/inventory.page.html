@@ -25,7 +25,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="productsList && expiredList">
+  <ion-item *ngIf="getList().length == 0" lines="none">
+    No products found
+  </ion-item>
+
   <ion-list lines="full">
     <ion-item [routerLink]="'edit-product/' + product.id" *ngFor="let product of getList()">
       <ion-label>

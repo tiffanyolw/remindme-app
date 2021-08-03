@@ -12,7 +12,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="productsList">
+  <ion-item *ngIf="productsList.length == 0" lines="none">
+    No products found
+  </ion-item>
+
   <ion-list lines="full">
     <ion-item [routerLink]="'view-product/' + product.id" *ngFor="let product of productsList">
       <ion-label>

@@ -12,8 +12,8 @@ import { FilterPage } from './filter/filter.page';
   styleUrls: ['./inventory.page.scss'],
 })
 export class InventoryPage implements OnInit {
-  productsList: Product[] = [];
-  expiredList: Product[] = [];
+  productsList: Product[];
+  expiredList: Product[];
   segment: string = "products";
 
   // filtered selections
