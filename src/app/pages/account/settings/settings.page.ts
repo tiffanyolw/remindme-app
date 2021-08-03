@@ -70,13 +70,18 @@ export class SettingsPage implements OnInit {
   }
 
   onUpdatePassword() {
-    let body: any = this.user;
+    let body: any = {};
     body.newPassword = this.newPasswordCtrl.value;
     body.currentPassword = this.currentPasswordCtrl.value;
 
     this._userService.updateUserPassword(body).subscribe((result) => {
       this.showToast("Password successfully updated");
       localStorage.setItem("currentUser", JSON.stringify(result));
+      this.updateUserForm.reset({
+        firstName: this.firstNameCtrl.value,
+        lastName: this.lastNameCtrl.value,
+        email: this.emailCtrl.value
+      });
     }, () => {
       this.showAlert("Error", "Could not update password. Please ensure you have the correct passowrd and try again.", ["Try again"]);
     });
