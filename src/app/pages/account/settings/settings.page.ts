@@ -83,7 +83,7 @@ export class SettingsPage implements OnInit {
         email: this.emailCtrl.value
       });
     }, () => {
-      this.showAlert("Error", "Could not update password. Please ensure you have the correct passowrd and try again.", ["Try again"]);
+      this.showAlert("Error", "Could not update password. Please ensure you have the correct password and try again.", ["Try again"]);
     });
   }
 
