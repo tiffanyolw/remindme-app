@@ -1,7 +1,8 @@
-# Ionic App
-A inventory and shopping list tracker to keep track of what is expiring and what to buy.
+# Remind Me
+A inventory and shopping list application to keep track of what to buy and what is expiring, with option to receive notifications when a product is expiring.
+Note: Tested on Android (Samsung Galaxy S7) 
 
-## Important!
+## Important
 - No actual authentication implemented; users only to separate the data and views between the different users
     - Can easily add/change values in the local storage
     - Can also call backend with any user and manipulate data without being logged in
@@ -22,3 +23,15 @@ A inventory and shopping list tracker to keep track of what is expiring and what
 
 ## Helpful Links
 https://github.com/ionic-team/ionic-framework/issues/19324
+
+## For future reference
+Error with `local-notifications`:
+```
+npm install cordova-plugin-local-notification
+npm install @ionic-native/local-notifications
+npm install @ionic-native/core
+npm install cordova-plugin-device
+npm install cordova-plugin-badge
+npm install jetifier
+npx jetify
+```

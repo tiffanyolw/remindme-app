@@ -1,8 +1,9 @@
 # Future Plans
+- Proper Authentication
+- Notifications: when a product's expiry date or days before notify is edited, update the scheduled notification
+- Notifications: allow user to set what time to receive (currently just set to 00:00:00:00)
 - Add/Edit categories, locations, units; store with userId
 - Add a store name table and sort by store name in shopping list
-- Proper Authentication
-- Notifications using value from `daysBeforeExpiry`
 - Search for a product/item
 - When shopping item is checked, prompt to add to inventory (FK in product table to shopping item id)
 - Show consumed and trashed segments in history with products that have been consumed and trashed in both
