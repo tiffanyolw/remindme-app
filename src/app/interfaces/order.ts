@@ -1,6 +1,6 @@
 export interface Order {
-    orderBy: string,
-    ordering: Ordering    
+    orderBy: string;
+    ordering: Ordering;    
 }
 
 export enum Ordering {

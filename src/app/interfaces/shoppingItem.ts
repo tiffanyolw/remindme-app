@@ -14,7 +14,7 @@ export interface ShoppingItem {
     bought: boolean;
     cleared: boolean;
     itemCategory?: Category;
-    itemUnit?: Unit,
-    createdAt?: Date,
-    updatedAt?: Date
+    itemUnit?: Unit;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
