@@ -144,7 +144,7 @@
 - Add button is disabled until all required fields are filled and valid
 - Toast shown on successful and unsuccessful add
 
-<img src="screenshots/shopping-item/add-item.PNG" width="150">
+<img src="screenshots/shopping-list/add-item.PNG" width="150">
 
 ### Edit Item
 - Back button redirects back
