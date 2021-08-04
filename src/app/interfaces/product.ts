@@ -15,12 +15,14 @@ export interface Product {
     locationStoredId: number;
     notes?: string;
     daysBeforeNotify?: number;
-    status: Status,
-    category?: Category,
-    locationStored?: Location,
-    unit?: Unit,
-    createdAt?: Date,
-    updatedAt?: Date
+    daysAfterNotify?: number;
+    onExpiryNotify: boolean;
+    status: Status;
+    category?: Category;
+    locationStored?: Location;
+    unit?: Unit;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export enum Status {

@@ -1,5 +1,10 @@
 # Functionality (for testing)
 
+## Notifications (Testing)
+- On add product, notifications on day of expiry, days before expiry, and days after expiry are set, a local notification is sent on those days
+- On edit product, if notifications were changed or expiry date changed, the days notifications are to be sent or not sent are updated
+- On delete product, all notifications are canceled
+
 ## Login 
 - Toggle password visible/not visible
 - Side menu not shown
@@ -57,7 +62,6 @@
 - Category by default is No Category
 - Location by default is No Location
 - Add button redirects back on successful add
-- If expiry date and notification days added, then a notification is scheduled that many days before expiry
 - Toast shown on successful and unsuccessful add
 
 <img src="screenshots/add-product.PNG" width="150">

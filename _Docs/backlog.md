@@ -1,7 +1,8 @@
 # Backlog
 - Proper Authentication
-- Notifications: option to receive notification on expiry date
-- Notifications: when a product's expiry date or days before notify is edited, update the scheduled notification
+- ~~Notifications: option to receive notification on expiry date~~
+- ~~Notifications: when a product's expiry date or days before notify is edited, update the scheduled notification~~
+- ~~Notifications: cancel all after consumed/trashed~~
 - Notifications: allow user to set what time to receive (currently just set to 00:00:00:00)
 - Add/Edit categories, locations, units; store with userId
 - Add a store name table and sort by store name in shopping list

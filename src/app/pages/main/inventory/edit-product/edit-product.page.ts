@@ -8,6 +8,7 @@ import { Location } from 'src/app/interfaces/location';
 import { Product, Status } from 'src/app/interfaces/product';
 import { Unit } from 'src/app/interfaces/unit';
 import { DataLookupService } from 'src/app/services/data-lookup.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class EditProductPage implements OnInit {
 
   constructor(private _activatedRoute: ActivatedRoute, private _builder: FormBuilder,
     private _navCtrl: NavController, private _toastCtrl: ToastController, private _alertCtrl: AlertController,
-    private _service: ProductService, private _dataLookupService: DataLookupService) {
+    private _service: ProductService, private _dataLookupService: DataLookupService, private _notificationService: NotificationService) {
 
     this.maxYear = Constants.maxYear;
 
@@ -83,6 +84,39 @@ export class EditProductPage implements OnInit {
     body.quantity = data.quantity - quantityTrashed;
 
     this._service.updateProduct(this.product.id, body).subscribe((result) => {
+      // update notifications
+      // clear all notifications for the product
+      this._notificationService.clearNotifications(result.id);
+
+      // only schedule notifications if not consumed nor trashed
+      if (result.status !== Status.Ready) {
+        // notification for day of expiry
+        const expiryDate = result.expiryDate;
+        if (expiryDate && result.onExpiryNotify) {
+          let notifDate: Date = new Date(expiryDate);
+          notifDate.setHours(0, 0, 0, 0);
+          this._notificationService.scheduleOnExpiryNotification(notifDate, result);
+        }
+
+        // notification for days before expiry
+        const daysBeforeNotify = result.daysBeforeNotify;
+        if (expiryDate && daysBeforeNotify) {
+          let notifDate: Date = new Date(expiryDate);
+          notifDate.setHours(0, 0, 0, 0);
+          notifDate.setDate(notifDate.getDate() - daysBeforeNotify);
+          this._notificationService.scheduleBeforeExpiryNotification(notifDate, result);
+        }
+
+        // notification for days after expiry
+        const daysAfterNotify = result.daysAfterNotify;
+        if (expiryDate && daysAfterNotify) {
+          let notifDate: Date = new Date(expiryDate);
+          notifDate.setHours(0, 0, 0, 0);
+          notifDate.setDate(notifDate.getDate() + daysAfterNotify);
+          this._notificationService.scheduleAfterExpiryNotification(notifDate, result);
+        }
+      }
+
       this.showToast(`${result.name} successfully updated`);
       this._navCtrl.back();
     }, () => {
@@ -104,6 +138,9 @@ export class EditProductPage implements OnInit {
           text: "Delete",
           handler: () => {
             this._service.deleteProduct(this.product.id).subscribe((result) => {
+              // delete notifications
+              this._notificationService.clearNotifications(result.id);
+
               this.showToast(`${result.name} deleted successfully`);
               this._navCtrl.back();
             }, () => {
@@ -191,7 +228,9 @@ export class EditProductPage implements OnInit {
           categoryId: [this.product.categoryId, [Validators.required]],
           locationStoredId: [this.product.locationStoredId, [Validators.required]],
           notes: [this.product.notes],
-          daysBeforeNotify: [this.product.daysBeforeNotify]
+          onExpiryNotify: [this.product.onExpiryNotify, [Validators.required]],
+          daysBeforeNotify: [this.product.daysBeforeNotify],
+          daysAfterNotify: [this.product.daysAfterNotify]
         });
       }, () => {
         this.showToast(`Error: Could not load ${this.product.name} information`);
