@@ -1,6 +1,9 @@
 # Remind Me
 A inventory and shopping list application to keep track of what to buy and what is expiring, with option to receive notifications when a product is expiring.
-Note: Tested on Android (Samsung Galaxy S7) 
+Note: Tested on Android (Samsung Galaxy S7)
+
+- [Angular Web App](https://github.com/tiffanyolw/remindme-web)
+- [Node.js Server](https://github.com/tiffanyolw/remindme-server)
 
 ## Important
 - No actual authentication implemented; users only to separate the data and views between the different users
