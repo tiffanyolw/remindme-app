@@ -11,8 +11,8 @@ Note: Tested on Android (Samsung Galaxy S7)
     - Can also call backend with any user and manipulate data without being logged in
 
 ## Contents
-- [Basic Functionality](_Docs/functionality.md)
-- [Future Plans](_Docs/todo.md)
+- [Functionality](_Docs/functionality.md)
+- [Backlog](_Docs/backlog.md)
 
 ## Steps to run
 1. `npm install` to install dependencies.
