@@ -1,6 +1,6 @@
 # Functionality (for testing)
 
-## Notifications (Testing)
+## Notifications
 - On add product, notifications on day of expiry, days before expiry, and days after expiry are set, a local notification is sent on those days
 - On edit product, if notifications were changed or expiry date changed, the days notifications are to be sent or not sent are updated
 - On delete product, all notifications are canceled
