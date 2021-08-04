@@ -14,15 +14,15 @@ Note: Tested on Android (Samsung Galaxy S7)
 - [Basic Functionality](_Docs/functionality.md)
 - [Future Plans](_Docs/todo.md)
 
-## Technology
-- Ionic with Angular
-- Ionic Capacitor
-
 ## Steps to run
 1. `npm install` to install dependencies.
 2. Follow the steps to run the [server](https://github.com/tiffanyolw/remindme-server).
 3. Update `environment.ts` and `environment.prod.ts` in the `environments` folder if needed
 4. `ionic serve` or `ionic cap run android`
+
+## Technology
+- Ionic with Angular
+- Ionic Capacitor
 
 
 ## Helpful Links
