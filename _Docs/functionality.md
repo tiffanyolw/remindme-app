@@ -57,6 +57,7 @@
 - Category by default is No Category
 - Location by default is No Location
 - Add button redirects back on successful add
+- If expiry date and notification days added, then a notification is scheduled that many days before expiry
 - Toast shown on successful and unsuccessful add
 
 <img src="screenshots/add-product.PNG" width="150">

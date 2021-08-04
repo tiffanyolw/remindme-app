@@ -8,6 +8,7 @@ import { Unit } from 'src/app/interfaces/unit';
 import { DataLookupService } from 'src/app/services/data-lookup.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Constants } from 'src/app/data/constants';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-add-product',
@@ -21,7 +22,8 @@ export class AddProductPage implements OnInit {
   locations: Location[] = [];
   units: Unit[] = [];
 
-  constructor(private _builder: FormBuilder, private _navCtrl: NavController, private _toastCtrl: ToastController,
+  constructor(private _builder: FormBuilder, private _navCtrl: NavController,
+    private _toastCtrl: ToastController, private _localNotifications: LocalNotifications,
     private _productService: ProductService, private _dataLookupService: DataLookupService) {
 
     this.addProductForm = this._builder.group({
@@ -79,6 +81,17 @@ export class AddProductPage implements OnInit {
     toast.present();
   }
 
+  private scheduleNotification(date: Date, product: Product) {
+    this._localNotifications.schedule({
+      id: new Date().getTime(), // unique id for each notification
+      title: `${product.name} is expiring in ${product.daysBeforeNotify} days`,
+      text: `${product.name} is about to expire. Please try to consume it before it expires to reduce waste.`,
+      trigger: { at: date },
+      led: "FF0000",
+      sound: null
+    });
+  }
+
   onSubmit() {
     let form: Product = this.addProductForm.value;
     form.status = Status.Ready;
@@ -86,6 +99,16 @@ export class AddProductPage implements OnInit {
     form.quantityTrashed = 0;
 
     this._productService.addProduct(form).subscribe((result) => {
+      // schedule notification
+      let expiryDate = result.expiryDate;
+      let daysBeforeNotify = result.daysBeforeNotify;
+      if (expiryDate && daysBeforeNotify) {
+        let notifDate: Date = new Date(expiryDate);
+        notifDate.setHours(0, 0, 0, 0);
+        notifDate.setDate(notifDate.getDate() - daysBeforeNotify);
+        this.scheduleNotification(notifDate, result);
+      }
+      
       this.showToast(`${result.name} added successfully`);
       this._navCtrl.back();
     }, () => {

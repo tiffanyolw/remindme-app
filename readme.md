@@ -1,6 +1,6 @@
-# !Wasteful
-A inventory and shopping list application to keep track of what is expiring and what to buy.
-Note: Tested on Android (Samsung Galaxy S7)
+# Remind Me
+A inventory and shopping list application to keep track of what to buy and what is expiring, with option to receive notifications when a product is expiring.
+Note: Tested on Android (Samsung Galaxy S7) 
 
 ## Important
 - No actual authentication implemented; users only to separate the data and views between the different users

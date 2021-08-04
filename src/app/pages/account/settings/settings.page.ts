@@ -77,6 +77,8 @@ export class SettingsPage implements OnInit {
     this._userService.updateUserPassword(body).subscribe((result) => {
       this.showToast("Password successfully updated");
       localStorage.setItem("currentUser", JSON.stringify(result));
+      
+      // only reset the password fields
       this.updateUserForm.reset({
         firstName: this.firstNameCtrl.value,
         lastName: this.lastNameCtrl.value,
