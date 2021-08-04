@@ -1,5 +1,6 @@
 # Future Plans
 - Proper Authentication
+- Notifications: option to receive notification on expiry date
 - Notifications: when a product's expiry date or days before notify is edited, update the scheduled notification
 - Notifications: allow user to set what time to receive (currently just set to 00:00:00:00)
 - Add/Edit categories, locations, units; store with userId
