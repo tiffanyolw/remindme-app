@@ -87,9 +87,30 @@
         </h5>
       </label>
     </ion-item>
-    <ion-item>
-      <ion-label position="floating">Days before expiry</ion-label>
+    <ion-item lines="none">
+      <ion-label position="floating">
+        On Expiry Day
+      </ion-label>
+      <ion-select formControlName="onExpiryNotify">
+        <ion-select-option [value]="false">
+          Disabled
+        </ion-select-option>
+        <ion-select-option [value]="true">
+          Enabled
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="floating">
+        Days before expiry
+      </ion-label>
       <ion-input type="number" min="0" formControlName="daysBeforeNotify"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Days after expiry
+      </ion-label>
+      <ion-input type="number" min="0" formControlName="daysAfterNotify"></ion-input>
     </ion-item>
   </form>
 
