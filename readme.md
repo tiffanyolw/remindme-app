@@ -16,6 +16,7 @@ Note: Tested on Android (Samsung Galaxy S7)
 
 ## Technology
 - Ionic with Angular
+- Ionic Capacitor
 
 ## Steps to run
 1. `npm install` to install dependencies.
