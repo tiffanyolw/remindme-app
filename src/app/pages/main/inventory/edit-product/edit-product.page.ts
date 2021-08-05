@@ -89,7 +89,7 @@ export class EditProductPage implements OnInit {
       this._notificationService.clearNotifications(result.id);
 
       // only schedule notifications if not consumed nor trashed
-      if (result.status !== Status.Ready) {
+      if (result.status === Status.Ready) {
         // notification for day of expiry
         const expiryDate = result.expiryDate;
         if (expiryDate && result.onExpiryNotify) {
