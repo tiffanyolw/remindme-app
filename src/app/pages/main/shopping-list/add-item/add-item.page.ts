@@ -1,4 +1,3 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, ToastController } from '@ionic/angular';
@@ -21,17 +20,17 @@ export class AddItemPage implements OnInit {
 
   constructor(private _builder: FormBuilder, private _navCtrl: NavController, private _toastCtrl: ToastController,
     private _shoppingService: ShoppingService, private _dataLookupService: DataLookupService) {
-      this.addItemForm = this._builder.group({
-        name: ["", [Validators.required]],
-        quantity: [],
-        unitId: [],
-        categoryId: [Constants.NoCategoryId, [Validators.required]],
-        price: [],
-        storeName: [],
-        notes: []
-      });
+    this.addItemForm = this._builder.group({
+      name: ["", [Validators.required]],
+      quantity: [],
+      unitId: [],
+      categoryId: [Constants.NoCategoryId, [Validators.required]],
+      price: [],
+      storeName: [],
+      notes: []
+    });
 
-      // only call API if no categories
+    // only call API if no categories
     if (this._dataLookupService.categories.length > 0) {
       this.categories = this._dataLookupService.categories;
     } else {
